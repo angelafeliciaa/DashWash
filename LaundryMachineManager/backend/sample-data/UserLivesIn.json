@@ -1,0 +1,26 @@
+[
+    {
+        "uid": 1,
+        "bid": 1,
+        "uname": "Leo Shang",
+        "email": "leoshang12@gmail.com"
+    },
+    {
+        "uid": 2,
+        "bid": 1,
+        "uname": "Jane Doe",
+        "email": "jd@gmail.com"
+    },
+    {
+        "uid": 3,
+        "bid": 2,
+        "uname": "John Smith",
+        "email": "j12@gmail.com"
+    },
+    {
+        "uid": 4,
+        "bid": 3,
+        "uname": "Alice Johnson",
+        "email": "aj@gmail.com"
+    }
+]

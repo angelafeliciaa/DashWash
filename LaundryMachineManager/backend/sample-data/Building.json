@@ -1,0 +1,17 @@
+[
+    {
+        "bid": 1,
+        "bname": "Marine Drive",
+        "address": "Address 1"
+    },
+    {
+        "bid": 2,
+        "bname": "Thunderbird",
+        "address": "Address 2"
+    },
+    {
+        "bid": 3,
+        "bname": "IDK",
+        "address": "Address 3"
+    }
+]
