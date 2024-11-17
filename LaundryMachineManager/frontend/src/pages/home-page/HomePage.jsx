@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import WelcomeBackWidget from "../../components/home-page/WelcomeBackWidget";
+import FundsWidget from "../../components/home-page/funds.jsx/FundsWidget";
 
 const HomePage = () => {
   const [users, setUsers] = useState(null);
+  const [buildings, setBuildings] = useState(null);
 
   const fetchUsers = async () => {
     try {
@@ -17,15 +20,37 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const fetchBuildings = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/buildings");
+      if (!response) {
+        throw new Error("net work (building) bugging yo");
+      }
+      const data = await response.json();
+      console.log(data);
+      setBuildings(data);
+    } catch (e) {
+      setError(e.message);
+    }
+  };
+
+  // useEffect(() => {
+  //   fetchUsers();
+  //   fetchBuildings();
+  // }, []);
 
   return (
     //className="flex align-middle justify-center h-screen w-screen"
     <>
       <div>
+        <div className="flex flex-row w-full min-h-[215px]">
+          <WelcomeBackWidget uname="Leo Shang" />
+          <FundsWidget balance={23.89} />
+        </div>
         <div>{users ? users.map((user) => user.uname) : null}</div>
+        <div>
+          {buildings ? buildings.map((building) => building.bname) : null}
+        </div>
       </div>
     </>
   );
