@@ -8,7 +8,7 @@ import {
 
 export default function Navigator() {
   return (
-    <section className="fixed top-0 left-0 flex h-screen w-[250px] flex-col text-white bg-black rounded-r-2xl">
+    <aside className="fixed top-0 left-0 flex h-screen w-[250px] flex-col text-white bg-black rounded-r-2xl">
       <div className="flex flex-row items-center py-6 px-4">
         <MdLocalLaundryService size={40} />
         <p className="font-bold ml-2 text-white">DashWash</p>
@@ -31,6 +31,6 @@ export default function Navigator() {
         <MdOutlineLogout size={24} />
         <p className="ml-4 text-white">Logout</p>
       </div>
-    </section>
+    </aside>
   );
 }

@@ -21,7 +21,7 @@
     @apply text-p-xl text-p-gray;
   }
   small {
-    @apply text-small-xl;
+    @apply text-small-xl text-p-gray;
   }
 }
 
