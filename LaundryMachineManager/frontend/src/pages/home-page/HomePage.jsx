@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import WelcomeBackWidget from "../../components/home-page/WelcomeBackWidget";
 import FundsWidget from "../../components/home-page/funds.jsx/FundsWidget";
+import Navigator from "../../components/global/Navigator";
 
 const HomePage = () => {
   const [users, setUsers] = useState(null);
@@ -40,19 +41,17 @@ const HomePage = () => {
   // }, []);
 
   return (
-    //className="flex align-middle justify-center h-screen w-screen"
-    <>
-      <div>
-        <div className="flex flex-row w-full min-h-[215px]">
-          <WelcomeBackWidget uname="Leo Shang" />
-          <FundsWidget balance={23.89} />
-        </div>
-        <div>{users ? users.map((user) => user.uname) : null}</div>
-        <div>
-          {buildings ? buildings.map((building) => building.bname) : null}
-        </div>
+    <div className="overflow-x-hidden">
+      <Navigator />
+      <div className="flex flex-row w-full min-h-[215px] ml-[255px] ">
+        <WelcomeBackWidget uname="Leo Shang" />
+        <FundsWidget balance={23.89} />
       </div>
-    </>
+      <div>{users ? users.map((user) => user.uname) : null}</div>
+      <div>
+        {buildings ? buildings.map((building) => building.bname) : null}
+      </div>
+    </div>
   );
 };
 
