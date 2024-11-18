@@ -27,7 +27,7 @@ export default function Navigator() {
           <p className="ml-4 text-white">Settings</p>
         </a>
       </nav>
-      <div className="mt-auto flex items-center px-4 py-2 hover:bg-gray-700">
+      <div className="mt-auto mb-5 flex items-center px-4 py-2 hover:bg-gray-700">
         <MdOutlineLogout size={24} />
         <p className="ml-4 text-white">Logout</p>
       </div>

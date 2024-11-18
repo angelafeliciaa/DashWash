@@ -1,10 +1,10 @@
 import { useState } from "react";
 import WelcomeBackWidget from "../../components/home-page/WelcomeBackWidget";
-import FundsWidget from "../../components/home-page/funds.jsx/FundsWidget";
+import FundsWidget from "../../components/home-page/funds-widget/FundsWidget";
 import Navigator from "../../components/global/Navigator";
 import CurrMachineWidget from "../../components/home-page/CurrMachineWidget";
 import CurrLaundryCard from "../../components/home-page/laundry-card-dropdown/CurrLaundryCard";
-import CardHistoryWidget from "../../components/home-page/card-history/CardHistoryWidget";
+import CardHistoryWidget from "../../components/home-page/card-history-widget/CardHistoryWidget";
 
 const HomePage = () => {
   const [users, setUsers] = useState(null);

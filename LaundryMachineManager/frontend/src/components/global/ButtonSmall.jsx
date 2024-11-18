@@ -1,8 +1,10 @@
 export default function ButtonSmall({ name, onClick }) {
-  <button
-    className="text-white bg-black w-fit px-5 py-1 rounded-md"
-    onClick={onClick}
-  >
-    {name}
-  </button>;
+  return (
+    <button
+      className="text-small-xl w-full text-white bg-black px-2 py-[2px] rounded-md"
+      onClick={onClick}
+    >
+      {name}
+    </button>
+  );
 }
