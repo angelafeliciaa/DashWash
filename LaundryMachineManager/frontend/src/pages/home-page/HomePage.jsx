@@ -3,6 +3,7 @@ import WelcomeBackWidget from "../../components/home-page/WelcomeBackWidget";
 import FundsWidget from "../../components/home-page/funds.jsx/FundsWidget";
 import Navigator from "../../components/global/Navigator";
 import CurrMachineWidget from "../../components/home-page/CurrMachineWidget";
+import CurrLaundryCard from "../../components/home-page/laundry-card-dropdown/CurrLaundryCard";
 
 const HomePage = () => {
   const [users, setUsers] = useState(null);
@@ -45,6 +46,13 @@ const HomePage = () => {
     <main className="flex w-screen">
       <Navigator className="w-[250px] h-screen fixed" />
       <div className="ml-[255px] flex-1">
+        <CurrLaundryCard
+          cards={[
+            { cid: 1111222233334444 },
+            { cid: 2222111133334444 },
+            { cid: 3333111122224444 },
+          ]}
+        />
         <div className="w-full">
           <div className="w-1/2">
             <div className="flex flex-row w-full min-h-[215px]">
