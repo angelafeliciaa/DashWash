@@ -2,7 +2,7 @@ import DudeWaving from "/images/DudeWaving.png";
 
 export default function WelcomeBackWidget({ uname }) {
   return (
-    <section className="flex items-center justify-evenly w-auto bg-widget px-10 rounded-3xl m-2">
+    <section className="flex items-center justify-evenly w-auto bg-widget px-10 rounded-3xl mr-2">
       <div className="flex flex-col items-start w-3/4">
         <h1>Hi {uname}!</h1>
         <p>Are you ready to do some laundry?</p>
