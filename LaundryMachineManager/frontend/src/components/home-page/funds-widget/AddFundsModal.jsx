@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import ButtonLarge from "../../global/ButtonLarge";
 
-export default function AddFundsModal({ isOpen, onClose, setBal }) {
+export default function AddFundsModal({ onClose, setBal }) {
   const [customAmount, setCustomAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState(null);
 
@@ -28,7 +28,7 @@ export default function AddFundsModal({ isOpen, onClose, setBal }) {
     }
   };
 
-  return isOpen ? (
+  return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
       <div className="bg-white p-5 rounded-xl w-96">
         <div className="flex justify-between items-center">
@@ -73,5 +73,5 @@ export default function AddFundsModal({ isOpen, onClose, setBal }) {
         </div>
       </div>
     </div>
-  ) : null;
+  );
 }

@@ -3,7 +3,7 @@ import WelcomeBackWidget from "../../components/home-page/WelcomeBackWidget";
 import FundsWidget from "../../components/home-page/funds-widget/FundsWidget";
 import Navigator from "../../components/global/Navigator";
 import CurrMachineWidget from "../../components/home-page/CurrMachineWidget";
-import CurrLaundryCard from "../../components/home-page/laundry-card-dropdown/CurrLaundryCard";
+import CurrLaundryCard from "../../components/home-page/CardDropdownWidget";
 import CardHistoryWidget from "../../components/home-page/card-history-widget/CardHistoryWidget";
 
 const HomePage = () => {
