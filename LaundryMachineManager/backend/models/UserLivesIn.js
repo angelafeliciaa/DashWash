@@ -37,4 +37,4 @@ UserLivesIn.init(
   { sequelize, modelName: "UserLivesIn" }
 );
 
-module.exports = User;
+module.exports = UserLivesIn;
