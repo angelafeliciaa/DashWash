@@ -1,3 +1,20 @@
+-- Drop all tables to reset
+DROP TABLE IF EXISTS CampusResidence;
+DROP TABLE IF EXISTS UserLivesIn;
+DROP TABLE IF EXISTS ReportsFeedback;
+DROP TABLE IF EXISTS LoadsWashingCard;
+DROP TABLE IF EXISTS Pays;
+DROP TABLE IF EXISTS ResidenceLaundryMachine;
+DROP TABLE IF EXISTS Manages;
+DROP TABLE IF EXISTS Washer;
+DROP TABLE IF EXISTS WashTypeSession;
+DROP TABLE IF EXISTS Dryer;
+DROP TABLE IF EXISTS DryTypeSession;
+DROP TABLE IF EXISTS ResidenceManager;
+DROP TABLE IF EXISTS RecordsTransaction;
+DROP TABLE IF EXISTS Repairs;
+DROP TABLE IF EXISTS Technician;
+
 -- CampusResidence Table
 CREATE TABLE CampusResidence (
     bid INT PRIMARY KEY,
@@ -245,7 +262,8 @@ CREATE TABLE Repairs (
     PRIMARY KEY (bid, lid, techid),
     FOREIGN KEY (bid, lid) REFERENCES ResidenceLaundryMachine(bid, lid)
 	ON UPDATE CASCADE
-	ON DELETE CASCADE, 
+	ON DELETE CASCADE,
+
     FOREIGN KEY (techid) REFERENCES Technician(techid)
 	ON UPDATE CASCADE
  	ON DELETE CASCADE
@@ -271,11 +289,3 @@ INSERT INTO Technician (techid, techname, techphone) VALUES
 (203, 'Tom Cruise', '778-807-9003'),
 (204, 'Lisa Lisa', '778-807-9004'),
 (205, 'Taylor Swift', '778-807-9005');
-
-
-
-
-
-
-
-
