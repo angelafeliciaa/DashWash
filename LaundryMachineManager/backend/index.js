@@ -7,6 +7,7 @@ const userLivesInRoute = require("./routes/userLivesInRoute");
 const buildingRoute = require("./routes/buildingRoute");
 const laundryMachineRoute = require("./routes/laundryMachineRoute");
 const washingCardRoute = require("./routes/washingCardRoute");
+const transactionRoute = require("./routes/transactionHistoryRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -28,6 +29,7 @@ app.use("/userLivesIn", userLivesInRoute);
 app.use("/campusResidence", buildingRoute);
 app.use("/laundryMachines", laundryMachineRoute);
 app.use("/washingCard", washingCardRoute);
+app.use("/transactionHistory", transactionRoute); 
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
