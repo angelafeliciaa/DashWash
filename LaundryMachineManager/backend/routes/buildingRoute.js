@@ -1,7 +1,7 @@
 const express = require("express");
-const { getUserLivesIn } = require("../controllers/userLivesInController");
+const { getBuildings } = require("../controllers/buildingController");
 
 const router = express.Router();
-router.get("/", getUserLivesIn);
+router.get("/", getBuildings);
 
 module.exports = router;

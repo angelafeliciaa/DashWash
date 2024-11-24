@@ -2,11 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 require("dotenv").config();
-const userRoutes = require("./routes/userLivesInRoute");
-const buildingRoutes = require("./routes/buildingRoute");
+
+const userLivesInRoute = require("./routes/userLivesInRoute");
+const buildingRoute = require("./routes/buildingRoute");
+const laundryMachineRoute = require("./routes/laundryMachineRoute");
+const washingCardRoute = require("./routes/washingCardRoute");
+const transactionRoute = require("./routes/transactionHistoryRoute");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.use(morgan("dev"));
 app.use(cors());
@@ -21,8 +25,11 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
-app.use("/api/users", userRoutes);
-app.use("/api/buildings", buildingRoutes);
+app.use("/userLivesIn", userLivesInRoute);
+app.use("/campusResidence", buildingRoute);
+app.use("/laundryMachines", laundryMachineRoute);
+app.use("/washingCard", washingCardRoute);
+app.use("/transactionHistory", transactionRoute); 
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
