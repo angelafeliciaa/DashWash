@@ -17,8 +17,8 @@ export const handleLoginDefaultUser = async (uemail, upassword) => {
     } else {
       throw new Error(data.error);
     }
-  } catch (e) {
-    console.error("Login failed", e.message);
-    throw e;
+  } catch (err) {
+    console.error("Login failed", err.message);
+    throw err;
   }
 };

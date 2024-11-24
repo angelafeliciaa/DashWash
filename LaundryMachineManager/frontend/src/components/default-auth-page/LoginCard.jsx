@@ -11,8 +11,8 @@ export default function LoginCard({ toggle }) {
     try {
       const response = await handleLoginDefaultUser(uemail, upassword);
       console.log("Login Success!", response);
-    } catch (e) {
-      console.error(e.message);
+    } catch (err) {
+      console.error(err.message);
       alert("Invalid Email or Password");
     }
   };
