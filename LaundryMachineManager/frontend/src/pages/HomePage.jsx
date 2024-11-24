@@ -1,11 +1,11 @@
 import { useState } from "react";
-import WelcomeBackWidget from "../../components/home-page/WelcomeBackWidget";
-import FundsWidget from "../../components/home-page/funds-widget/FundsWidget";
-import Navigator from "../../components/global/Navigator";
-import CurrMachineWidget from "../../components/home-page/CurrMachineWidget";
-import CardDropdownWidget from "../../components/home-page/CardDropdownWidget";
-import CardHistoryWidget from "../../components/home-page/card-history-widget/CardHistoryWidget";
-import LaundryMachinesWidget from "../../components/home-page/laundry-machines-widget/LaundryMachinesWidget";
+import WelcomeBackWidget from "../components/home-page/WelcomeBackWidget";
+import FundsWidget from "../components/home-page/funds-widget/FundsWidget";
+import Navigator from "../components/global/Navigator";
+import CurrMachineWidget from "../components/home-page/CurrMachineWidget";
+import CardDropdownWidget from "../components/home-page/CardDropdownWidget";
+import CardHistoryWidget from "../components/home-page/card-history-widget/CardHistoryWidget";
+import LaundryMachinesWidget from "../components/home-page/laundry-machines-widget/LaundryMachinesWidget";
 const washers = [
   {
     lid: 1,
