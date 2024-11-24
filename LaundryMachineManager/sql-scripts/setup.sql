@@ -34,36 +34,41 @@ CREATE TABLE UserLivesIn (
     uid INT PRIMARY KEY,
     bid INT NOT NULL,
     uname VARCHAR(20) NOT NULL DEFAULT 'User',
+    uemail VARCHAR(50) NOT NULL UNIQUE, 
+    upassword VARCHAR(50) NOT NULL, 
     FOREIGN KEY (bid) REFERENCES CampusResidence(bid)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
 
-INSERT INTO UserLivesIn (uID, bid, uname) VALUES
-(1001, 1, 'John Doe'),
-(1002, 2, 'Jane Smith'),
-(1003, 3, 'Bob Johnson'),
-(1004, 4, 'Alice Brown'),
-(1005, 5, 'Charlie Davis');
+INSERT INTO UserLivesIn (uID, bid, uname, uemail, upassword) VALUES
+(1001, 1, 'John Doe', 'johndoe@gmail.com', 'upassword1'),
+(1002, 2, 'Jane Smith', 'janesmith@gmail.com', 'upassword2'),
+(1003, 3, 'Bob Johnson', 'bobjohnson@gmail.com', 'upassword3'),
+(1004, 4, 'Alice Brown', 'alicebrown@gmail.com', 'upassword4'),
+(1005, 5, 'Charlie Davis', 'charliedavis@gmail.com', 'upassword5');
 
 
 -- ReportsFeedback Table
 CREATE TABLE ReportsFeedback (
     fid INT PRIMARY KEY,
     uid INT NOT NULL,
+    bid INT, 
+    lid INT, 
     feedbackType VARCHAR(20),
     comments VARCHAR(70) NOT NULL,
     FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
+    FOREIGN KEY (bid, lid) REFERENCES ResidenceLaundryMachine(bid, lid)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
 
-INSERT INTO ReportsFeedback (fid, uid, FeedbackType, Comments) VALUES
-(1, 1001, 'Complaint', 'Machine not working'),
-(2, 1002, 'Suggestion', 'Need more dryers'),
-(3, 1003, 'Compliment', 'Great service'),
-(4, 1004, 'Complaint', 'Card reader malfunctioning'),
-(5, 1005, 'Suggestion', 'Extend laundry hours');
+INSERT INTO ReportsFeedback (fid, uid, bid, lid, FeedbackType, Comments) VALUES
+(1, 1001, 'Complaint', 1, 1,  'Machine not working'),
+(2, 1002, 'Suggestion', 1, 2,  'Need more dryers'),
+(3, 1003, 'Compliment', 2, 1,  'Great service'),
+(4, 1004, 'Complaint',3, 1,  'Card reader malfunctioning'),
+(5, 1005, 'Suggestion', 4, 1, 'Extend laundry hours');
 
 -- LoadsWashingCard Table
 CREATE TABLE LoadsWashingCard (
@@ -205,15 +210,16 @@ CREATE TABLE ResidenceManager (
     mid INT PRIMARY KEY,
     mname VARCHAR(20) NOT NULL,
     mphone VARCHAR(15) NOT NULL UNIQUE, 
-    memail VARCHAR(30) NOT NULL UNIQUE
+    memail VARCHAR(30) NOT NULL UNIQUE, 
+    mpassword VARCHAR(50) NOT NULL
 );
 
-INSERT INTO ResidenceManager (mid, mname, mphone, memail) VALUES
-(501, 'John Smith', '778-807-9001', 'john.smith@gmail.com'),
-(502, 'Jane Doe', '778-807-9002', 'jane.doe@gmail.com'),
-(503, 'Mike Johnson', '778-807-9003', 'mike.johnson@gmail.com'),
-(504, 'Sarah Brown', '778-807-9004', 'sarah.brown@gmail.com'),
-(505, 'Chris Lee', '778-807-9005', 'chris.lee@gmail.com');
+INSERT INTO ResidenceManager (mid, mname, mphone, memail, mpassword) VALUES
+(501, 'John Smith', '778-807-9001', 'john.smith@gmail.com', 'mpassword1'),
+(502, 'Jane Doe', '778-807-9002', 'jane.doe@gmail.com', 'mpassword2'),
+(503, 'Mike Johnson', '778-807-9003', 'mike.johnson@gmail.com', 'mpassword3'),
+(504, 'Sarah Brown', '778-807-9004', 'sarah.brown@gmail.com', 'mpassword4'),
+(505, 'Chris Lee', '778-807-9005', 'chris.lee@gmail.com', 'mpassword5');
 
 -- Manages Table
 CREATE TABLE Manages (
