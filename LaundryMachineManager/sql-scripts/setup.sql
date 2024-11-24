@@ -24,11 +24,11 @@ CREATE TABLE CampusResidence (
 );
 
 INSERT INTO CampusResidence (bid, bname, address) VALUES
-(1, 'Nicola', '5000 Student Union Blvd'),
-(2, 'Nicole', '5100 Student Union Blvd'),
-(3, 'Nicoli', '5200 Student Union Blvd'),
-(4, 'Nicolo', '5300 Student Union Blvd'),
-(5, 'Nicolu', '5400 Student Union Blvd');
+(1, 'Marine Drive', '5000 Student Union Blvd'),
+(2, 'Ponderosa Commons', '5100 Student Union Blvd'),
+(3, 'Brock Commons', '5200 Student Union Blvd'),
+(4, 'Exchange', '5300 Student Union Blvd'),
+(5, 'Thunderbird', '5400 Student Union Blvd');
 
 -- UserLivesIn Table
 CREATE TABLE UserLivesIn (
