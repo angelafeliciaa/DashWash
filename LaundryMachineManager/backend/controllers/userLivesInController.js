@@ -1,17 +1,19 @@
-const fs = require("fs");
-const path = require("path");
+const { supabaseServiceRole } = require("../supabaseClient");
 
-const getUserLivesIn = (req, res) => {
-  const filePath = path.join(__dirname, "../sample-data", "UserLivesIn.json");
-  console.log(filePath);
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      return res
-        .status(500)
-        .json({ error: "Failed to read file UserLivesIn.json" });
+const getUserLivesIn = async (req, res) => {
+  try {
+    const { data, error } = await supabaseServiceRole
+      .from("UserLivesIn")
+      .select("*");
+
+    if (error) {
+      return res.status(400).json({ error: error.message });
     }
-    res.json(JSON.parse(data));
-  });
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Internal server error.", details: err.message });
+  }
 };
 
 module.exports = {
