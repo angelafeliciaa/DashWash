@@ -17,6 +17,7 @@
     "express": "^4.21.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.7",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "uuid": "^11.0.3"
   }
 }
