@@ -61,8 +61,8 @@ export default function RegisterCard({ toggle }) {
     setSuccess("");
 
     const registrationData = {
+      building, //bid
       name,
-      building, // bid
       email,
       password,
     };
