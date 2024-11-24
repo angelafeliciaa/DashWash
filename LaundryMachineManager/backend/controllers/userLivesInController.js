@@ -3,7 +3,7 @@ const { supabaseServiceRole } = require("../supabaseClient");
 const getUserLivesIn = async (req, res) => {
   try {
     const { data, error } = await supabaseServiceRole
-      .from("UserLivesIn")
+      .from("userlivesin")
       .select("*");
 
     if (error) {
