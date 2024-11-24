@@ -4,7 +4,8 @@ const morgan = require("morgan");
 require("dotenv").config();
 
 const userLivesInRoute = require("./routes/userLivesInRoute");
-const buildingRoutes = require("./routes/buildingRoute");
+const buildingRoute = require("./routes/buildingRoute");
+const laundryMachineRoute = require("./routes/laundryMachineRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -23,7 +24,8 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/userLivesIn", userLivesInRoute);
-app.use("/campusResidence", buildingRoutes);
+app.use("/campusResidence", buildingRoute);
+app.use("/laundryMachines", laundryMachineRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
