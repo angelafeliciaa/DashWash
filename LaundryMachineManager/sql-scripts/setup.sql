@@ -1,10 +1,7 @@
 -- Drop all tables to reset
-DROP TABLE IF EXISTS CampusResidence;
-DROP TABLE IF EXISTS UserLivesIn;
+
 DROP TABLE IF EXISTS ReportsFeedback;
-DROP TABLE IF EXISTS LoadsWashingCard;
 DROP TABLE IF EXISTS Pays;
-DROP TABLE IF EXISTS ResidenceLaundryMachine;
 DROP TABLE IF EXISTS Manages;
 DROP TABLE IF EXISTS Washer;
 DROP TABLE IF EXISTS WashTypeSession;
@@ -14,6 +11,10 @@ DROP TABLE IF EXISTS ResidenceManager;
 DROP TABLE IF EXISTS RecordsTransaction;
 DROP TABLE IF EXISTS Repairs;
 DROP TABLE IF EXISTS Technician;
+DROP TABLE IF EXISTS ResidenceLaundryMachine;
+DROP TABLE IF EXISTS LoadsWashingCard;
+DROP TABLE IF EXISTS UserLivesIn;
+DROP TABLE IF EXISTS CampusResidence;
 
 -- CampusResidence Table
 CREATE TABLE CampusResidence (
@@ -48,45 +49,6 @@ INSERT INTO UserLivesIn (uID, bid, uname, uemail, upassword) VALUES
 (1004, 4, 'Alice Brown', 'alicebrown@gmail.com', 'upassword4'),
 (1005, 5, 'Charlie Davis', 'charliedavis@gmail.com', 'upassword5');
 
-
--- ReportsFeedback Table
-CREATE TABLE ReportsFeedback (
-    fid INT PRIMARY KEY,
-    uid INT NOT NULL,
-    bid INT, 
-    lid INT, 
-    feedbackType VARCHAR(20),
-    comments VARCHAR(70) NOT NULL,
-    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
-    FOREIGN KEY (bid, lid) REFERENCES ResidenceLaundryMachine(bid, lid)
-	ON UPDATE CASCADE
-	ON DELETE CASCADE
-);
-
-INSERT INTO ReportsFeedback (fid, uid, bid, lid, FeedbackType, Comments) VALUES
-(1, 1001, 'Complaint', 1, 1,  'Machine not working'),
-(2, 1002, 'Suggestion', 1, 2,  'Need more dryers'),
-(3, 1003, 'Compliment', 2, 1,  'Great service'),
-(4, 1004, 'Complaint',3, 1,  'Card reader malfunctioning'),
-(5, 1005, 'Suggestion', 4, 1, 'Extend laundry hours');
-
--- LoadsWashingCard Table
-CREATE TABLE LoadsWashingCard (
-    cid INT PRIMARY KEY,
-    uid INT NOT NULL,
-    balance INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
-	ON UPDATE CASCADE
-	ON DELETE CASCADE
-);
-
-INSERT INTO LoadsWashingCard (cid, uid, Balance) VALUES
-(101, 1001, 20),
-(102, 1002, 15),
-(103, 1003, 30),
-(104, 1004, 10),
-(105, 1005, 25);
-
 -- ResidenceLaundryMachine Table
 CREATE TABLE ResidenceLaundryMachine (
     bid INT,
@@ -111,6 +73,45 @@ INSERT INTO ResidenceLaundryMachine (bid, lid, brand, model, washing_status) VAL
 (4, 2, 'Coinamatic', 'DryerPro', 'Available'),
 (5, 1, 'Coinamatic', 'WM100', 'Available'),
 (5, 2, 'Coinamatic', 'DryerPro', 'Available');
+
+
+-- ReportsFeedback Table
+CREATE TABLE ReportsFeedback (
+    fid INT PRIMARY KEY,
+    uid INT NOT NULL,
+    bid INT, 
+    lid INT, 
+    feedbackType VARCHAR(20),
+    comments VARCHAR(70) NOT NULL,
+    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid),
+    FOREIGN KEY (bid, lid) REFERENCES ResidenceLaundryMachine(bid, lid)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+);
+
+INSERT INTO ReportsFeedback (fid, uid, bid, lid, FeedbackType, Comments) VALUES
+(1, 1001, 1, 1, 'Complaint', 'Machine not working'),
+(2, 1002, 1, 2, 'Suggestion', 'Need more dryers'),
+(3, 1003, 2, 1, 'Compliment', 'Great service'),
+(4, 1004, 3, 1, 'Complaint', 'Card reader malfunctioning'),
+(5, 1005, 4, 1, 'Suggestion', 'Extend laundry hours');
+
+-- LoadsWashingCard Table
+CREATE TABLE LoadsWashingCard (
+    cid INT PRIMARY KEY,
+    uid INT NOT NULL,
+    balance INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+);
+
+INSERT INTO LoadsWashingCard (cid, uid, Balance) VALUES
+(101, 1001, 20),
+(102, 1002, 15),
+(103, 1003, 30),
+(104, 1004, 10),
+(105, 1005, 25);
 
 -- Pays Table
 CREATE TABLE Pays (
