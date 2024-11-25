@@ -1,5 +1,6 @@
 import { useState, useEffect} from "react";
 import ButtonSmall from "../global/ButtonSmall";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterCard({ toggle }) {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ export default function RegisterCard({ toggle }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchBuildings = async () => {
@@ -93,6 +95,14 @@ export default function RegisterCard({ toggle }) {
     } catch (err) {
       console.error(err);
       setError(err.message || "An error occurred during registration.");
+    }
+  };
+
+  const handleLoginClick = () => {
+    try {
+      navigate("/")
+    } catch(err) {
+      console.error(err);
     }
   };
 
@@ -191,7 +201,7 @@ export default function RegisterCard({ toggle }) {
             Have an account?{" "}
             <span
               className=" text-blue-500 hover:underline whitespace-nowrap hover:cursor-pointer"
-              onClick={toggle}
+              onClick={handleLoginClick}
             >
               Log in
             </span>
