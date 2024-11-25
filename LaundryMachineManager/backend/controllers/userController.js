@@ -31,7 +31,7 @@ const registerUser = async (req, res) => {
 
     // insert uid, bid, uname, uemail, upassword to userslivein
     const { data, error } = await supabaseServiceRole
-      .from("userslivein")
+      .from("userlivesin")
       .insert([
         {
           uid: uid,
