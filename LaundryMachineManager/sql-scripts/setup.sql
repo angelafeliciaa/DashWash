@@ -98,7 +98,7 @@ INSERT INTO ReportsFeedback (fid, uid, bid, lid, FeedbackType, Comments) VALUES
 
 -- LoadsWashingCard Table
 CREATE TABLE LoadsWashingCard (
-    cid INT PRIMARY KEY,
+    cid UUID PRIMARY KEY,
     uid UUID NOT NULL,
     balance INT NOT NULL DEFAULT 0,
     FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
@@ -107,15 +107,15 @@ CREATE TABLE LoadsWashingCard (
 );
 
 INSERT INTO LoadsWashingCard (cid, uid, Balance) VALUES
-(101, '1650bab4-6943-441e-a3af-6bd7f79f95ca', 20),
-(102, '1650bab4-6943-441e-a3af-6bd7f79f95cb', 15),
-(103, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 30),
-(104, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 10),
-(105, '1650bab4-6943-441e-a3af-6bd7f79f95ce', 25);
+('1650bab4-6943-441e-a3af-6bd7f79f95da', '1650bab4-6943-441e-a3af-6bd7f79f95ca', 20),
+('1650bab4-6943-441e-a3af-6bd7f79f95db', '1650bab4-6943-441e-a3af-6bd7f79f95cb', 15),
+('1650bab4-6943-441e-a3af-6bd7f79f95dc', '1650bab4-6943-441e-a3af-6bd7f79f95cc', 30),
+('1650bab4-6943-441e-a3af-6bd7f79f95dd', '1650bab4-6943-441e-a3af-6bd7f79f95cd', 10),
+('1650bab4-6943-441e-a3af-6bd7f79f95de', '1650bab4-6943-441e-a3af-6bd7f79f95ce', 25);
 
 -- Pays Table
 CREATE TABLE Pays (
-    cid INT,
+    cid UUID,
     bid INT,
     lid INT,
     hasfunds BOOLEAN NOT NULL DEFAULT TRUE,
@@ -129,11 +129,11 @@ ON DELETE CASCADE,
 );
 
 INSERT INTO Pays (cid, bid, lid, hasfunds) VALUES
-(101, 1, 1, TRUE),
-(102, 1, 2, TRUE),
-(103, 2, 1, TRUE),
-(104, 3, 1, FALSE),
-(105, 4, 1, TRUE); 
+('1650bab4-6943-441e-a3af-6bd7f79f95da', 1, 1, TRUE),
+('1650bab4-6943-441e-a3af-6bd7f79f95db', 1, 2, TRUE),
+('1650bab4-6943-441e-a3af-6bd7f79f95dc', 2, 1, TRUE),
+('1650bab4-6943-441e-a3af-6bd7f79f95dd', 3, 1, FALSE),
+('1650bab4-6943-441e-a3af-6bd7f79f95de', 4, 1, TRUE); 
 
 -- WashTypeSession Table
 CREATE TABLE WashTypeSession (
@@ -246,7 +246,7 @@ INSERT INTO Manages (bid, lid, mid) VALUES
 -- RecordsTransaction Table
 CREATE TABLE RecordsTransaction (
     tid INT PRIMARY KEY,
-    cid INT NOT NULL,
+    cid UUID NOT NULL,
     day DATE NOT NULL,
     time VARCHAR(10) NOT NULL,
     price INT NOT NULL,
@@ -255,11 +255,11 @@ CREATE TABLE RecordsTransaction (
 );
 
 INSERT INTO RecordsTransaction (tid, cid, day, time, price) VALUES
-(1, 101, '2024-09-10', '22:30:00', 150),
-(2, 102, '2024-09-15', '10:13:30', 300),
-(3, 103, '2024-10-01', '14:09:00', 150),
-(4, 104, '2024-10-05', '11:45:45', 150),
-(5, 105, '2024-10-13', '21:10:10', 150);
+(1, '1650bab4-6943-441e-a3af-6bd7f79f95da', '2024-09-10', '22:30:00', 150),
+(2, '1650bab4-6943-441e-a3af-6bd7f79f95db', '2024-09-15', '10:13:30', 300),
+(3, '1650bab4-6943-441e-a3af-6bd7f79f95dc', '2024-10-01', '14:09:00', 150),
+(4, '1650bab4-6943-441e-a3af-6bd7f79f95dd', '2024-10-05', '11:45:45', 150),
+(5, '1650bab4-6943-441e-a3af-6bd7f79f95de', '2024-10-13', '21:10:10', 150);
 
 -- Technician Table
 CREATE TABLE Technician (
