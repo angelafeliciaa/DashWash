@@ -10,10 +10,18 @@ export const handleLoginDefaultUser = async (uemail, upassword) => {
     );
 
     const data = await response.json();
+    console.log("Login response data:", data);
 
     if (response.ok) {
-      localStorage.setItem("defaultUser", JSON.stringify(data));
-      return data;
+      const userData = {
+        uid: data.uid,
+        bid: data.bid,
+        name: data.uname,
+        email: data.uemail,
+        password: data.upassword
+      };
+      localStorage.setItem("defaultUser", JSON.stringify(userData));
+      return userData;
     } else {
       throw new Error(data.error);
     }
