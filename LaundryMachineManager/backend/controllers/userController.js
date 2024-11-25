@@ -27,10 +27,12 @@ const registerUser = async (req, res) => {
     }
   
     const uid = uuidv4();
+    const cid = uuidv4();
     console.log("Generated UID:", uid);
+    console.log("Generated CID:", cid);
 
     // insert uid, bid, uname, uemail, upassword to userslivein
-    const { data, error } = await supabaseServiceRole
+    const { data: userData, error: userError } = await supabaseServiceRole
       .from("userlivesin")
       .insert([
         {
@@ -40,14 +42,32 @@ const registerUser = async (req, res) => {
           uemail: email,
           upassword: password,
         },
-      ]);
+      ])
+      .select("uid")
+      .single();
 
-      if (error) {
-        console.error("Insert Error:", error);
-        return res.status(400).json({ error: "Failed to register user.", details: error.message });
+      if (userError) {
+        console.error("Insert Error:", userError);
+        return res.status(400).json({ error: "Failed to register user.", details: userError.message });
       }
 
-    res.status(201).json({ message: "User registered successfully.", data });
+      // initialize washing card
+      const { data: cardData, error: cardError } = await supabaseServiceRole
+      .from("loadswashingcard")
+      .insert([{ cid, uid, balance: 5 }])
+      .select("cid")
+      .single();
+
+      if (cardError) {
+        console.error("Washing Card Error:", cardError);
+        return res.status(400).json({ error: "Failed to initialize washing card.", details: cardError.message });
+      }
+
+      res.status(201).json({ 
+        message: "User registered successfully.", 
+        uid: uid, 
+        cid: cid 
+      });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error.", details: err.message });
