@@ -68,8 +68,8 @@ const HomePage = () => {
       const data = await response.json();
       console.log(data);
       setUsers(data);
-    } catch (e) {
-      setError(e.message);
+    } catch (err) {
+      setError(err.message);
     }
   };
 

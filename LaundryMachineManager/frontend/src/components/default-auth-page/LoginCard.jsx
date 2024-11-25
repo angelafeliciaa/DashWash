@@ -1,10 +1,22 @@
 import ButtonSmall from "../global/ButtonSmall";
+import { handleLoginDefaultUser } from "../../services/authService";
+import { useState } from "react";
 
 export default function LoginCard({ toggle }) {
-  const handleSubmit = (e) => {
+  const [uemail, setUemail] = useState("");
+  const [upassword, setUpassword] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login Successful");
+    try {
+      const response = await handleLoginDefaultUser(uemail, upassword);
+      console.log("Login Success!", response);
+    } catch (err) {
+      console.error(err.message);
+      alert("Invalid Email or Password");
+    }
   };
+
   return (
     <div className="flex justify-center items-center h-screen w-screen">
       <section className="flex flex-col justify-center items-center h-fit w-fit rounded-3xl p-10 bg-widget shadow-lg">
@@ -14,6 +26,8 @@ export default function LoginCard({ toggle }) {
             <p>Email</p>
             <input
               type="email"
+              value={uemail}
+              onChange={(e) => setUemail(e.target.value)}
               className="p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Enter email"
               required
@@ -24,6 +38,8 @@ export default function LoginCard({ toggle }) {
             <p>Password</p>
             <input
               type="password"
+              value={upassword}
+              onChange={(e) => setUpassword(e.target.value)}
               className="p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Enter password"
               minLength="8"
@@ -31,11 +47,7 @@ export default function LoginCard({ toggle }) {
             />
           </label>
 
-          <ButtonSmall
-            name={"Login"}
-            type="submit"
-            onClick={() => console.log("Login Submitted")}
-          />
+          <ButtonSmall name={"Login"} type="submit" />
           <small>
             Don't have an account?{" "}
             <span
