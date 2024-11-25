@@ -35,7 +35,7 @@ const updateWashingCardBalance = async (req, res) => {
     }
 
     const newBalance = data.balance + amount;
-    
+
     const { error: updateError } = await supabaseServiceRole
       .from("loadswashingcard")
       .update({ balance: newBalance })
@@ -51,4 +51,43 @@ const updateWashingCardBalance = async (req, res) => {
   }
 };
 
-module.exports = { getWashingCardBalance, updateWashingCardBalance };
+const getWashingCardID = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const { data, error } = await supabaseServiceRole
+      .from("loadswashingcard")
+      .select("cid")
+      .eq("uid", uid)
+      .single();
+
+    if (error) {
+      return res.status(400).json({ error: "Failed to fetch washing card ID.", details: error.message });
+    }
+
+    res.status(200).json({ id: data.id });
+  } catch (err) {
+    res.status(500).json({ error: "Internal server error.", details: err.message });
+
+  }
+};
+
+const initializeWashingCard = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const { data, error } = await supabaseServiceRole
+      .from("loadswashingcard")
+      .insert([{ uid, balance: 5 }])
+      .select("cid")
+      .single();
+
+    if (error) {
+      return res.status(400).json({ error: "Failed to initialize washing card.", details: error.message });
+    }
+
+    res.status(200).json({ id: data.id });
+  } catch (err) {
+    res.status(500).json({ error: "Internal server error.", details: err.message });
+  }
+};
+
+module.exports = { getWashingCardBalance, updateWashingCardBalance, getWashingCardID, initializeWashingCard };
