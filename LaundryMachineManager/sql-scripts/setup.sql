@@ -24,15 +24,15 @@ CREATE TABLE CampusResidence (
 );
 
 INSERT INTO CampusResidence (bid, bname, address) VALUES
-(1, 'Nicola', '5000 Student Union Blvd'),
-(2, 'Nicole', '5100 Student Union Blvd'),
-(3, 'Nicoli', '5200 Student Union Blvd'),
-(4, 'Nicolo', '5300 Student Union Blvd'),
-(5, 'Nicolu', '5400 Student Union Blvd');
+(1, 'Marine Drive', '5000 Student Union Blvd'),
+(2, 'Ponderosa Commons', '5100 Student Union Blvd'),
+(3, 'Brock Commons', '5200 Student Union Blvd'),
+(4, 'Exchange', '5300 Student Union Blvd'),
+(5, 'Thunderbird', '5400 Student Union Blvd');
 
 -- UserLivesIn Table
 CREATE TABLE UserLivesIn (
-    uid INT PRIMARY KEY,
+    uid UUID PRIMARY KEY,
     bid INT NOT NULL,
     uname VARCHAR(20) NOT NULL DEFAULT 'User',
     uemail VARCHAR(50) NOT NULL UNIQUE, 
@@ -43,11 +43,11 @@ CREATE TABLE UserLivesIn (
 );
 
 INSERT INTO UserLivesIn (uID, bid, uname, uemail, upassword) VALUES
-(1001, 1, 'John Doe', 'johndoe@gmail.com', 'upassword1'),
-(1002, 2, 'Jane Smith', 'janesmith@gmail.com', 'upassword2'),
-(1003, 3, 'Bob Johnson', 'bobjohnson@gmail.com', 'upassword3'),
-(1004, 4, 'Alice Brown', 'alicebrown@gmail.com', 'upassword4'),
-(1005, 5, 'Charlie Davis', 'charliedavis@gmail.com', 'upassword5');
+('1650bab4-6943-441e-a3af-6bd7f79f95ca', 1, 'John Doe', 'johndoe@gmail.com', 'upassword1'),
+('1650bab4-6943-441e-a3af-6bd7f79f95cb', 2, 'Jane Smith', 'janesmith@gmail.com', 'upassword2'),
+('1650bab4-6943-441e-a3af-6bd7f79f95cc', 3, 'Bob Johnson', 'bobjohnson@gmail.com', 'upassword3'),
+('1650bab4-6943-441e-a3af-6bd7f79f95cd', 4, 'Alice Brown', 'alicebrown@gmail.com', 'upassword4'),
+('1650bab4-6943-441e-a3af-6bd7f79f95ce', 5, 'Charlie Davis', 'charliedavis@gmail.com', 'upassword5');
 
 -- ResidenceLaundryMachine Table
 CREATE TABLE ResidenceLaundryMachine (
@@ -78,7 +78,7 @@ INSERT INTO ResidenceLaundryMachine (bid, lid, brand, model, washing_status) VAL
 -- ReportsFeedback Table
 CREATE TABLE ReportsFeedback (
     fid INT PRIMARY KEY,
-    uid INT NOT NULL,
+    uid UUID NOT NULL,
     bid INT, 
     lid INT, 
     feedbackType VARCHAR(20),
@@ -90,16 +90,16 @@ CREATE TABLE ReportsFeedback (
 );
 
 INSERT INTO ReportsFeedback (fid, uid, bid, lid, FeedbackType, Comments) VALUES
-(1, 1001, 1, 1, 'Complaint', 'Machine not working'),
-(2, 1002, 1, 2, 'Suggestion', 'Need more dryers'),
-(3, 1003, 2, 1, 'Compliment', 'Great service'),
-(4, 1004, 3, 1, 'Complaint', 'Card reader malfunctioning'),
-(5, 1005, 4, 1, 'Suggestion', 'Extend laundry hours');
+(1, '1650bab4-6943-441e-a3af-6bd7f79f95ca', 1, 1, 'Complaint', 'Machine not working'),
+(2, '1650bab4-6943-441e-a3af-6bd7f79f95cb', 1, 2, 'Suggestion', 'Need more dryers'),
+(3, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 2, 1, 'Compliment', 'Great service'),
+(4, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 3, 1, 'Complaint', 'Card reader malfunctioning'),
+(5, '1650bab4-6943-441e-a3af-6bd7f79f95ce', 4, 1, 'Suggestion', 'Extend laundry hours');
 
 -- LoadsWashingCard Table
 CREATE TABLE LoadsWashingCard (
     cid INT PRIMARY KEY,
-    uid INT NOT NULL,
+    uid UUID NOT NULL,
     balance INT NOT NULL DEFAULT 0,
     FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
 	ON UPDATE CASCADE
@@ -107,11 +107,11 @@ CREATE TABLE LoadsWashingCard (
 );
 
 INSERT INTO LoadsWashingCard (cid, uid, Balance) VALUES
-(101, 1001, 20),
-(102, 1002, 15),
-(103, 1003, 30),
-(104, 1004, 10),
-(105, 1005, 25);
+(101, '1650bab4-6943-441e-a3af-6bd7f79f95ca', 20),
+(102, '1650bab4-6943-441e-a3af-6bd7f79f95cb', 15),
+(103, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 30),
+(104, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 10),
+(105, '1650bab4-6943-441e-a3af-6bd7f79f95ce', 25);
 
 -- Pays Table
 CREATE TABLE Pays (
