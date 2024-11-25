@@ -1,10 +1,7 @@
 -- Drop all tables to reset
-DROP TABLE IF EXISTS CampusResidence;
-DROP TABLE IF EXISTS UserLivesIn;
+
 DROP TABLE IF EXISTS ReportsFeedback;
-DROP TABLE IF EXISTS LoadsWashingCard;
 DROP TABLE IF EXISTS Pays;
-DROP TABLE IF EXISTS ResidenceLaundryMachine;
 DROP TABLE IF EXISTS Manages;
 DROP TABLE IF EXISTS Washer;
 DROP TABLE IF EXISTS WashTypeSession;
@@ -14,6 +11,10 @@ DROP TABLE IF EXISTS ResidenceManager;
 DROP TABLE IF EXISTS RecordsTransaction;
 DROP TABLE IF EXISTS Repairs;
 DROP TABLE IF EXISTS Technician;
+DROP TABLE IF EXISTS ResidenceLaundryMachine;
+DROP TABLE IF EXISTS LoadsWashingCard;
+DROP TABLE IF EXISTS UserLivesIn;
+DROP TABLE IF EXISTS CampusResidence;
 
 -- CampusResidence Table
 CREATE TABLE CampusResidence (
@@ -23,64 +24,30 @@ CREATE TABLE CampusResidence (
 );
 
 INSERT INTO CampusResidence (bid, bname, address) VALUES
-(1, 'Nicola', '5000 Student Union Blvd'),
-(2, 'Nicole', '5100 Student Union Blvd'),
-(3, 'Nicoli', '5200 Student Union Blvd'),
-(4, 'Nicolo', '5300 Student Union Blvd'),
-(5, 'Nicolu', '5400 Student Union Blvd');
+(1, 'Marine Drive', '5000 Student Union Blvd'),
+(2, 'Ponderosa Commons', '5100 Student Union Blvd'),
+(3, 'Brock Commons', '5200 Student Union Blvd'),
+(4, 'Exchange', '5300 Student Union Blvd'),
+(5, 'Thunderbird', '5400 Student Union Blvd');
 
 -- UserLivesIn Table
 CREATE TABLE UserLivesIn (
-    uid INT PRIMARY KEY,
+    uid UUID PRIMARY KEY,
     bid INT NOT NULL,
     uname VARCHAR(20) NOT NULL DEFAULT 'User',
+    uemail VARCHAR(50) NOT NULL UNIQUE, 
+    upassword VARCHAR(50) NOT NULL, 
     FOREIGN KEY (bid) REFERENCES CampusResidence(bid)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
 
-INSERT INTO UserLivesIn (uID, bid, uname) VALUES
-(1001, 1, 'John Doe'),
-(1002, 2, 'Jane Smith'),
-(1003, 3, 'Bob Johnson'),
-(1004, 4, 'Alice Brown'),
-(1005, 5, 'Charlie Davis');
-
-
--- ReportsFeedback Table
-CREATE TABLE ReportsFeedback (
-    fid INT PRIMARY KEY,
-    uid INT NOT NULL,
-    feedbackType VARCHAR(20),
-    comments VARCHAR(70) NOT NULL,
-    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
-	ON UPDATE CASCADE
-	ON DELETE CASCADE
-);
-
-INSERT INTO ReportsFeedback (fid, uid, FeedbackType, Comments) VALUES
-(1, 1001, 'Complaint', 'Machine not working'),
-(2, 1002, 'Suggestion', 'Need more dryers'),
-(3, 1003, 'Compliment', 'Great service'),
-(4, 1004, 'Complaint', 'Card reader malfunctioning'),
-(5, 1005, 'Suggestion', 'Extend laundry hours');
-
--- LoadsWashingCard Table
-CREATE TABLE LoadsWashingCard (
-    cid INT PRIMARY KEY,
-    uid INT NOT NULL,
-    balance INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
-	ON UPDATE CASCADE
-	ON DELETE CASCADE
-);
-
-INSERT INTO LoadsWashingCard (cid, uid, Balance) VALUES
-(101, 1001, 20),
-(102, 1002, 15),
-(103, 1003, 30),
-(104, 1004, 10),
-(105, 1005, 25);
+INSERT INTO UserLivesIn (uID, bid, uname, uemail, upassword) VALUES
+('1650bab4-6943-441e-a3af-6bd7f79f95ca', 1, 'John Doe', 'johndoe@gmail.com', 'upassword1'),
+('1650bab4-6943-441e-a3af-6bd7f79f95cb', 2, 'Jane Smith', 'janesmith@gmail.com', 'upassword2'),
+('1650bab4-6943-441e-a3af-6bd7f79f95cc', 3, 'Bob Johnson', 'bobjohnson@gmail.com', 'upassword3'),
+('1650bab4-6943-441e-a3af-6bd7f79f95cd', 4, 'Alice Brown', 'alicebrown@gmail.com', 'upassword4'),
+('1650bab4-6943-441e-a3af-6bd7f79f95ce', 5, 'Charlie Davis', 'charliedavis@gmail.com', 'upassword5');
 
 -- ResidenceLaundryMachine Table
 CREATE TABLE ResidenceLaundryMachine (
@@ -106,6 +73,45 @@ INSERT INTO ResidenceLaundryMachine (bid, lid, brand, model, washing_status) VAL
 (4, 2, 'Coinamatic', 'DryerPro', 'Available'),
 (5, 1, 'Coinamatic', 'WM100', 'Available'),
 (5, 2, 'Coinamatic', 'DryerPro', 'Available');
+
+
+-- ReportsFeedback Table
+CREATE TABLE ReportsFeedback (
+    fid INT PRIMARY KEY,
+    uid UUID NOT NULL,
+    bid INT, 
+    lid INT, 
+    feedbackType VARCHAR(20),
+    comments VARCHAR(70) NOT NULL,
+    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid),
+    FOREIGN KEY (bid, lid) REFERENCES ResidenceLaundryMachine(bid, lid)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+);
+
+INSERT INTO ReportsFeedback (fid, uid, bid, lid, FeedbackType, Comments) VALUES
+(1, '1650bab4-6943-441e-a3af-6bd7f79f95ca', 1, 1, 'Complaint', 'Machine not working'),
+(2, '1650bab4-6943-441e-a3af-6bd7f79f95cb', 1, 2, 'Suggestion', 'Need more dryers'),
+(3, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 2, 1, 'Compliment', 'Great service'),
+(4, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 3, 1, 'Complaint', 'Card reader malfunctioning'),
+(5, '1650bab4-6943-441e-a3af-6bd7f79f95ce', 4, 1, 'Suggestion', 'Extend laundry hours');
+
+-- LoadsWashingCard Table
+CREATE TABLE LoadsWashingCard (
+    cid INT PRIMARY KEY,
+    uid UUID NOT NULL,
+    balance INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (uid) REFERENCES UserLivesIn(uid)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+);
+
+INSERT INTO LoadsWashingCard (cid, uid, Balance) VALUES
+(101, '1650bab4-6943-441e-a3af-6bd7f79f95ca', 20),
+(102, '1650bab4-6943-441e-a3af-6bd7f79f95cb', 15),
+(103, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 30),
+(104, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 10),
+(105, '1650bab4-6943-441e-a3af-6bd7f79f95ce', 25);
 
 -- Pays Table
 CREATE TABLE Pays (
@@ -205,15 +211,16 @@ CREATE TABLE ResidenceManager (
     mid INT PRIMARY KEY,
     mname VARCHAR(20) NOT NULL,
     mphone VARCHAR(15) NOT NULL UNIQUE, 
-    memail VARCHAR(30) NOT NULL UNIQUE
+    memail VARCHAR(30) NOT NULL UNIQUE, 
+    mpassword VARCHAR(50) NOT NULL
 );
 
-INSERT INTO ResidenceManager (mid, mname, mphone, memail) VALUES
-(501, 'John Smith', '778-807-9001', 'john.smith@gmail.com'),
-(502, 'Jane Doe', '778-807-9002', 'jane.doe@gmail.com'),
-(503, 'Mike Johnson', '778-807-9003', 'mike.johnson@gmail.com'),
-(504, 'Sarah Brown', '778-807-9004', 'sarah.brown@gmail.com'),
-(505, 'Chris Lee', '778-807-9005', 'chris.lee@gmail.com');
+INSERT INTO ResidenceManager (mid, mname, mphone, memail, mpassword) VALUES
+(501, 'John Smith', '778-807-9001', 'john.smith@gmail.com', 'mpassword1'),
+(502, 'Jane Doe', '778-807-9002', 'jane.doe@gmail.com', 'mpassword2'),
+(503, 'Mike Johnson', '778-807-9003', 'mike.johnson@gmail.com', 'mpassword3'),
+(504, 'Sarah Brown', '778-807-9004', 'sarah.brown@gmail.com', 'mpassword4'),
+(505, 'Chris Lee', '778-807-9005', 'chris.lee@gmail.com', 'mpassword5');
 
 -- Manages Table
 CREATE TABLE Manages (
