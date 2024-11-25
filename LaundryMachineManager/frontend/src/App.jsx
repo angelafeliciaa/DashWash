@@ -3,7 +3,6 @@ import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import RmHomPage from "./pages/RmHomePage";
 import SettingsPage from "./pages/SettingsPage";
-
 import "./App.css";
 import LoginCard from "./components/default-auth-page/LoginCard";
 import RegisterCard from "./components/default-auth-page/RegisterCard";
@@ -18,6 +17,7 @@ function App() {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/rm" element={<RmHomPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/rm" element={<RmHomPage />} />
       </Routes>
     </Router>
   );
