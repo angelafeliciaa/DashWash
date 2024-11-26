@@ -6,6 +6,7 @@ import SettingsPage from "./pages/SettingsPage";
 import "./App.css";
 import LoginCard from "./components/default-auth-page/LoginCard";
 import RegisterCard from "./components/default-auth-page/RegisterCard";
+import RmMachinePage from "./pages/RmMachinePage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/rm" element={<RmHomePage />} />
+        <Route path="/rm/machines" element={<RmMachinePage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </Router>

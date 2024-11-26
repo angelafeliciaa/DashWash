@@ -7,11 +7,11 @@ const loginDefaultUser = async (req, res) => {
   }
   try {
     const { data: user, error } = await supabaseServiceRole
-    .from('userlivesin')
-    .select('*')
-    .eq('uemail', uemail)
-    .eq('upassword', upassword)
-    .single();
+      .from("userlivesin")
+      .select("*")
+      .eq("uemail", uemail)
+      .eq("upassword", upassword)
+      .single();
 
     if (error || !user) {
       return res.status(401).json({ error: "Invalid email or password." });
@@ -19,10 +19,10 @@ const loginDefaultUser = async (req, res) => {
 
     return res.status(200).json({
       uid: user.uid,
-      bid: user.bid,         
-      name: user.uname,      
+      bid: user.bid,
+      name: user.uname,
       email: user.uemail,
-      password: user.upassword
+      password: user.upassword,
     });
   } catch (err) {
     console.error("Error during login:", err.message);
