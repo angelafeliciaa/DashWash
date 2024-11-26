@@ -2,9 +2,10 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import ButtonLarge from "../../global/ButtonLarge";
 
-export default function AddFundsModal({ onClose, setBal }) {
+export default function AddFundsModal({ onClose, setBal, uid }) {
   const [customAmount, setCustomAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleCustomAmountChange = (e) => {
     setCustomAmount(e.target.value);
