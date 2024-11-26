@@ -51,6 +51,8 @@ const getUserLivesIn = async (req, res) => {
 const rmDashBoardUsers = async (req, res) => {
   try {
     // Does not include "Show users who have filed feedback for all laundry machines" yet
+
+    // SELECTION
     const { name, email, buildingName, cardNum, orderBy } = req.body;
     let query = supabaseServiceRole
       .from("userlivesin")
