@@ -1,15 +1,24 @@
 import { MdModeEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EditUserModal from "./EditUserModal";
 import UserFilters from "./UserFilters";
 import ButtonSmall from "../global/ButtonSmall";
+import { getRmDashBoardUsers } from "../../services/rmManagementService";
 
-export default function UserManagerWidget({ users }) {
+export default function UserManagerWidget() {
+  const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    name: "",
+    email: "",
+    buildingName: "",
+    cardNum: "",
+    orderBy: "",
+  });
 
   const toggleFilterOpen = () => {
     setIsFilterOpen((prev) => !prev);
@@ -55,9 +64,32 @@ export default function UserManagerWidget({ users }) {
     } finally {
       setIsDeleting(false);
     }
+    console.log("Deleted user with UID:", uid);
+  };
 
+  const fetchUsers = async (appliedFilters) => {
+    setError(null);
+    try {
+      const fetchedUsers = await getRmDashBoardUsers(
+        appliedFilters.uname,
+        appliedFilters.uemail,
+        appliedFilters.buildingName,
+        appliedFilters.cardNum,
+        appliedFilters.orderBy
+      );
+      setUsers(fetchedUsers);
+    } catch (err) {
+      setError(err.message || "Failed to fetch users.");
+    }
+  };
 
-    console.log("Deleting user with UID:", uid);
+  useEffect(() => {
+    fetchUsers(filters);
+  }, []);
+
+  const handleApplyFilters = (appliedFilters) => {
+    setFilters(appliedFilters);
+    fetchUsers(appliedFilters);
   };
 
   return (
@@ -74,11 +106,7 @@ export default function UserManagerWidget({ users }) {
         </div>
 
         {isFilterOpen && (
-          <UserFilters
-            onApplyFilters={(filters) =>
-              console.log("Filters applied:", filters)
-            }
-          />
+          <UserFilters onApplyFilters={handleApplyFilters} />
         )}
       </div>
 
@@ -110,43 +138,55 @@ export default function UserManagerWidget({ users }) {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.uid} className="hover:bg-gray-50">
-                <td className="px-4 py-2 text-small-xl text-gray-700">
-                  {user.uid}
-                </td>
-                <td className="px-4 py-2 text-small-xl text-gray-700">
-                  {user.name}
-                </td>
-                <td className="px-4 py-2 text-small-xl text-gray-700">
-                  {user.email}
-                </td>
-                <td className="px-4 py-2 text-small-xl text-gray-700">
-                  {user.buildingName}
-                </td>
-                <td className="px-4 py-2 text-small-xl text-gray-700">
-                  {user.buildingAddress}
-                </td>
-                <td className="px-4 py-2 text-small-xl text-gray-700">
-                  {user.card}
-                </td>
-                <td className="px-4 py-2 text-small-xl text-gray-700">
-                  <button
-                    className="text-2xl p-2 text-blue-500"
-                    onClick={() => handleEditUser(user)}
+              {users.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan="7"
+                    className="px-4 py-2 text-center text-gray-500"
                   >
-                    <MdModeEdit />
-                  </button>
-                  <button
-                    className="text-2xl p-2 text-red-500"
-                    onClick={() => handleDeleteUser(user.uid)}
-                  >
-                    <MdDelete />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+                    No users found.
+                  </td>
+                </tr>
+              ) : (
+                users.map((user) => (
+                  <tr key={user.uid} className="hover:bg-gray-50">
+                    <td className="px-4 py-2 text-small-xl text-gray-700">
+                      {user.uid}
+                    </td>
+                    <td className="px-4 py-2 text-small-xl text-gray-700">
+                      {user.name}
+                    </td>
+                    <td className="px-4 py-2 text-small-xl text-gray-700">
+                      {user.email}
+                    </td>
+                    <td className="px-4 py-2 text-small-xl text-gray-700">
+                      {user.buildingName}
+                    </td>
+                    <td className="px-4 py-2 text-small-xl text-gray-700">
+                      {user.buildingAddress}
+                    </td>
+                    <td className="px-4 py-2 text-small-xl text-gray-700">
+                      {user.card}
+                    </td>
+                    <td className="px-4 py-2 text-small-xl text-gray-700">
+                      <button
+                        className="text-2xl p-2 text-blue-500"
+                        onClick={() => handleEditUser(user)}
+                      >
+                        <MdModeEdit />
+                      </button>
+                      <button
+                        className="text-2xl p-2 text-red-500"
+                        onClick={() => handleDeleteUser(user.uid)}
+                        disabled={isDeleting}
+                      >
+                        <MdDelete />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
         </table>
       </div>
 

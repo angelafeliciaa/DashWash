@@ -1,9 +1,9 @@
 export const getRmDashBoardUsers = async (
-    name,
-    email,
-    buildingName,
-    cardNum,
-    orderBy
+    name = "",
+    email = "",
+    buildingName = "",
+    cardNum = "",
+    orderBy = ""
   ) => {
     try {
       const response = await fetch(
@@ -21,17 +21,19 @@ export const getRmDashBoardUsers = async (
         return data.map((resp) => {
           return {
             uid: resp.uid,
-            uname: resp.name,
-            uemail: resp.umail,
+            name: resp.uname,
+            email: resp.uemail,
             bid: resp.campusresidence.bid,
-            bname: resp.campusresidence.bname,
-            address: resp.campusresidence.address,
-            cid: resp.loadswashingcard.cid,
+            buildingName: resp.campusresidence.bname,
+            buildingAddress: resp.campusresidence.address,
+            card: resp.loadswashingcard[0].cid,
           };
         });
+      } else {
+        throw new Error(data.message || "Failed to fetch users.");
       }
     } catch (err) {
-      console.error("Login failed", err.message);
+      console.error("Failed to fetch users:", err.message);
       throw err;
     }
   };
