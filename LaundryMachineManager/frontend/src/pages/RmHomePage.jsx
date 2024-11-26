@@ -28,7 +28,7 @@ const sample_users = [
   },
 ];
 
-export default function RmHomPage() {
+export default function RmHomePage() {
   return (
     <main className="flex h-screen">
       <Navigator className="w-[250px] h-screen fixed" />
