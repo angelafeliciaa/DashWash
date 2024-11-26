@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import WelcomeBackWidget from "../components/home-page/WelcomeBackWidget";
 import FundsWidget from "../components/home-page/funds-widget/FundsWidget";
 import Navigator from "../components/global/Navigator";
@@ -6,6 +6,8 @@ import CurrMachineWidget from "../components/home-page/CurrMachineWidget";
 import CardDropdownWidget from "../components/home-page/CardDropdownWidget";
 import CardHistoryWidget from "../components/home-page/card-history-widget/CardHistoryWidget";
 import LaundryMachinesWidget from "../components/home-page/laundry-machines-widget/LaundryMachinesWidget";
+import { useNavigate } from "react-router-dom";
+
 const washers = [
   {
     lid: 1,
@@ -56,22 +58,47 @@ const residences = [
 ];
 
 const HomePage = () => {
-  const [users, setUsers] = useState(null);
-  const [buildings, setBuildings] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [uid, setUid] = useState(null);
+  const [cid, setCid] = useState(null);
+  const navigate = useNavigate();
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/users");
-      if (!response) {
-        throw new Error("net work bugging yo");
+  useEffect(() => {
+    const storedUser = localStorage.getItem("defaultUser");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      console.log("User data from localStorage:", user);
+      setUserData(user);
+
+      const uid = user.uid;
+      if (uid) {
+        fetchCid(uid);
+      } else {
+        console.error("UID is undefined in user data");
       }
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  const fetchCid = async (uid) => {
+    try {
+      const response = await fetch(`http://localhost:5001/washingCard/${uid}/cardID`);
       const data = await response.json();
-      console.log(data);
-      setUsers(data);
+      console.log("API Response Data:", data);
+      if (response.ok) {
+        setCid(data.cid);
+      } else {
+        console.error(data.error);
+      }
     } catch (err) {
-      setError(err.message);
+      console.error("Failed to fetch card ID:", err);
     }
   };
+
+  if (!userData || cid === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="flex h-screen">
@@ -82,22 +109,21 @@ const HomePage = () => {
       <div className="ml-[255px] flex-1 flex flex-row h-full ">
         {/* Left Column */}
         <div className="flex-1 flex flex-col">
-          <CardDropdownWidget
-            cards={[
-              { cid: 1111222233334444 },
-              { cid: 2222111133334444 },
-              { cid: 3333111122224444 },
-            ]}
-          />
+        <section className="ml-2 w-[500px] mt-2">
+            <div className="flex items-center p-4 rounded-lg">
+              <h1>Welcome Back!</h1>
+            </div>
+          </section>
+        {/* <CardDropdownWidget uid={userData.uid} /> */}
           <div className="flex flex-row w-full min-h-[215px]">
-            <WelcomeBackWidget uname="Leo Shang" />
-            <FundsWidget balance={23.89} />
+            <WelcomeBackWidget uname={userData.name} />
+            <FundsWidget uid={userData.uid} />
           </div>
           <div className="flex flex-row w-full min-h-[240px] mt-2">
             <CurrMachineWidget />
           </div>
           <div className="flex-1 overflow-y-auto mt-2">
-            <CardHistoryWidget
+          <CardHistoryWidget
               transactions={[
                 { tid: 1, day: "2024-11-16", time: "14:30:00", price: 2 },
                 { tid: 2, day: "2024-11-15", time: "10:00:00", price: 3 },

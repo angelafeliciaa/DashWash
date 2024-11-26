@@ -1,19 +1,30 @@
 import ButtonSmall from "../global/ButtonSmall";
 import { handleLoginDefaultUser } from "../../services/authService";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginCard({ toggle }) {
   const [uemail, setUemail] = useState("");
   const [upassword, setUpassword] = useState("");
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await handleLoginDefaultUser(uemail, upassword);
       console.log("Login Success!", response);
+      navigate("/home");
     } catch (err) {
       console.error(err.message);
       alert("Invalid Email or Password");
+    }
+  };
+
+  const handleSignUp = async(e) => {
+    try {
+      navigate("/register");
+    } catch(err) {
+      console.error(err.message);
     }
   };
 
@@ -38,6 +49,7 @@ export default function LoginCard({ toggle }) {
             <p>Password</p>
             <input
               type="password"
+              autoComplete="on"
               value={upassword}
               onChange={(e) => setUpassword(e.target.value)}
               className="p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
@@ -52,7 +64,7 @@ export default function LoginCard({ toggle }) {
             Don't have an account?{" "}
             <span
               className=" text-blue-500 hover:underline whitespace-nowrap hover:cursor-pointer"
-              onClick={toggle}
+              onClick={handleSignUp}
             >
               Sign up
             </span>

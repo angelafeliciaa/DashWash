@@ -2,9 +2,10 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import ButtonLarge from "../../global/ButtonLarge";
 
-export default function AddFundsModal({ onClose, setBal }) {
+export default function AddFundsModal({ onClose, setBal, uid }) {
   const [customAmount, setCustomAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleCustomAmountChange = (e) => {
     setCustomAmount(e.target.value);
@@ -16,15 +17,35 @@ export default function AddFundsModal({ onClose, setBal }) {
     setSelectedAmount(amount);
   };
 
-  const handleSubmit = () => {
-    const amountToAdd = customAmount
-      ? parseFloat(customAmount)
-      : selectedAmount;
+  const handleSubmit = async () => {
+    const amountToAdd = customAmount ? parseFloat(customAmount) : selectedAmount;
     if (amountToAdd && amountToAdd > 0) {
-      setBal((prevBal) => prevBal + amountToAdd);
-      setCustomAmount("");
-      setSelectedAmount("");
-      onClose();
+      try {
+        const response = await fetch(`http://localhost:5001/washingCard/${uid}/addFunds`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: amountToAdd }), 
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to add funds");
+        }
+
+        const data = await response.json();
+        
+        setBal(data.balance);
+        setCustomAmount("");
+        setSelectedAmount(null);
+        setSuccessMessage("Funds added successfully!");
+        setTimeout(() => {
+          setSuccessMessage("");
+          onClose();
+        }, 2000);
+      } catch (err) {
+        console.error("Error adding funds:", err);
+      }
     }
   };
 
