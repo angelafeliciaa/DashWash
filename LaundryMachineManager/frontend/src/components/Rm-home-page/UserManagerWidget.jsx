@@ -8,6 +8,8 @@ import ButtonSmall from "../global/ButtonSmall";
 export default function UserManagerWidget({ users }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState(null);
 
   const toggleFilterOpen = () => {
     setIsFilterOpen((prev) => !prev);
@@ -21,7 +23,40 @@ export default function UserManagerWidget({ users }) {
     setSelectedUser(null);
   };
 
-  const handleDeleteUser = (uid) => {
+  const handleDeleteUser = async (uid) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (!confirmDelete) return;
+
+    setIsDeleting(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`http://localhost:5001/delete-user/${uid}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete user.");
+      }
+
+      const data = await response.json();
+      console.log(data.message);
+
+      setUsers((prevUsers) => prevUsers.filter((user) => user.uid !== uid));
+    } catch (err) {
+      console.error("Error deleting user:", err.message);
+      setError("Failed to delete user. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+
+
     console.log("Deleting user with UID:", uid);
   };
 

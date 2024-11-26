@@ -74,4 +74,36 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+const deleteUser = async (req, res) => {
+    const { uid } = req.params;
+
+    try {
+        // delete user from washing card table
+        const { error: cardError } = await supabaseServiceRole
+          .from("loadswashingcard")
+          .delete()
+          .eq("uid", uid);
+    
+        if (cardError) {
+          console.error("Error deleting washing card:", cardError.message);
+          return res.status(500).json({ message: "Failed to delete washing card.", details: cardError.message });
+        }
+        
+        // delete user from userlivesin
+        const { error: userError } = await supabaseServiceRole
+          .from("userlivesin")
+          .delete()
+          .eq("uid", uid);
+    
+        if (userError) {
+          console.error("Error deleting user:", userError.message);
+          return res.status(500).json({ message: "Failed to delete user.", details: userError.message });
+        }
+        res.status(200).json({ message: "User deleted successfully." });
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).json({ message: "Server error.", details: error.message });
+      }
+};
+
+module.exports = { registerUser, deleteUser};
