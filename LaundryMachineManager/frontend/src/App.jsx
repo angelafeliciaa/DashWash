@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
-import RmHomPage from "./pages/RmHomePage";
+import RmHomePage from "./pages/RmHomePage";
 import SettingsPage from "./pages/SettingsPage";
 import "./App.css";
 import LoginCard from "./components/default-auth-page/LoginCard";
@@ -15,9 +15,8 @@ function App() {
         <Route path="/register" element={<RegisterCard />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/rm" element={<RmHomPage />} />
+        <Route path="/rm" element={<RmHomePage />} />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/rm" element={<RmHomPage />} />
       </Routes>
     </Router>
   );
