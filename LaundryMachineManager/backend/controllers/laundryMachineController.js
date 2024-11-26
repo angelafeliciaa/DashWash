@@ -23,6 +23,39 @@ const getLaundryMachines = async (req, res) => {
   }
 };
 
+// check that its equal to bid -> residencelaundrymachine -> washer + dryer
+const getDryersByBid = async (req, res) => {
+  try {
+    const { bid } = req.params;
+    const { data, error } = await supabaseServiceRole
+      .from("residencelaundrymachine")
+      .select("*")
+      .eq("bid", bid);
+
+    if (error) {
+      return res.status(400).json({
+        error: "Failed to fetch laundry machines.",
+        details: error.message,
+      });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Internal server error.", details: err.message });
+  }
+};
+
+const getWashersByBid = async (req, res) => {
+  try {
+    const { bid } = req.body;
+    const { data, error } = await supabaseServiceRole
+      .from("residencelaundrymachine")
+      .select("*")
+      .eq("bid", bid);
+  } catch (err) {}
+};
 // {
 //   "lid": true,
 //   "bname": true,
