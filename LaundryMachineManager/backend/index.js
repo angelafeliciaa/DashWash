@@ -30,11 +30,11 @@ app.use("/userLivesIn", userLivesInRoute);
 app.use("/campusResidence", buildingRoute);
 app.use("/laundryMachines", laundryMachineRoute);
 app.use("/washingCard", washingCardRoute);
-app.use("/transactionHistory", transactionRoute); 
+app.use("/transactionHistory", transactionRoute);
 
 // register user
-app.use("/", userRoutes); 
+app.use("/", userRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:5001`);
 });
