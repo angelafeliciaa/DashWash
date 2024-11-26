@@ -13,8 +13,6 @@ export default function LoginCard({ toggle }) {
     try {
       const response = await handleLoginDefaultUser(uemail, upassword);
       console.log("Login Success!", response);
-      localStorage.setItem("defaultUser", JSON.stringify(response));
-      const { uid, bid } = response;
       navigate("/home");
     } catch (err) {
       console.error(err.message);

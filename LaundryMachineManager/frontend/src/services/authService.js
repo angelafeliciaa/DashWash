@@ -16,9 +16,8 @@ export const handleLoginDefaultUser = async (uemail, upassword) => {
       const userData = {
         uid: data.uid,
         bid: data.bid,
-        name: data.uname,
-        email: data.uemail,
-        password: data.upassword
+        name: data.name,
+        email: data.email
       };
       localStorage.setItem("defaultUser", JSON.stringify(userData));
       return userData;
