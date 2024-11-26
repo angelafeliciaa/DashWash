@@ -2,9 +2,17 @@ import { MdModeEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 import EditUserModal from "./EditUserModal";
+import UserFilters from "./UserFilters";
+import ButtonSmall from "../global/ButtonSmall";
 
 export default function UserManagerWidget({ users }) {
   const [selectedUser, setSelectedUser] = useState(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  const toggleFilterOpen = () => {
+    setIsFilterOpen((prev) => !prev);
+  };
+
   const handleEditUser = (user) => {
     setSelectedUser(user);
   };
@@ -20,6 +28,24 @@ export default function UserManagerWidget({ users }) {
   return (
     <section className="flex flex-col h-full gap-6 w-full bg-white p-6 rounded-3xl shadow-lg overflow-y-auto">
       <h1 className="text-2xl font-bold">User Management</h1>
+
+      <div className="border-b pb-4">
+        <div className="w-[200px]">
+          <ButtonSmall
+            onClick={toggleFilterOpen}
+            className="flex items-center gap-2 text-p-xl"
+            name={isFilterOpen ? "Hide Filters" : "Show Filters"}
+          />
+        </div>
+
+        {isFilterOpen && (
+          <UserFilters
+            onApplyFilters={(filters) =>
+              console.log("Filters applied:", filters)
+            }
+          />
+        )}
+      </div>
 
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto">
@@ -39,6 +65,9 @@ export default function UserManagerWidget({ users }) {
               </th>
               <th className="px-4 py-2 text-small-xl font-medium text-gray-700">
                 Building Address
+              </th>
+              <th className="px-4 py-2 text-small-xl font-medium text-gray-700">
+                Card #
               </th>
               <th className="px-4 py-2 text-small-xl font-medium text-gray-700">
                 Actions
@@ -62,6 +91,9 @@ export default function UserManagerWidget({ users }) {
                 </td>
                 <td className="px-4 py-2 text-small-xl text-gray-700">
                   {user.buildingAddress}
+                </td>
+                <td className="px-4 py-2 text-small-xl text-gray-700">
+                  {user.card}
                 </td>
                 <td className="px-4 py-2 text-small-xl text-gray-700">
                   <button
@@ -90,6 +122,7 @@ export default function UserManagerWidget({ users }) {
           uname={selectedUser.name}
           buildingName={selectedUser.buildingName}
           buildingAddress={selectedUser.buildingAddress}
+          cardNumber={selectedUser.card}
         />
       )}
     </section>

@@ -6,10 +6,12 @@ export default function EditUserModal({
   uname,
   uemail,
   buildingName,
+  cardNumber,
 }) {
   const [name, setName] = useState(uname);
   const [building, setBuilding] = useState(buildingName);
   const [buildings, setBuildings] = useState([]);
+  const [cardNum, setCardNum] = useState(cardNumber);
   const [email, setEmail] = useState(uemail);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -137,6 +139,17 @@ export default function EditUserModal({
                 </option>
               )}
             </select>
+          </label>
+          <label className="flex flex-col">
+            <span className="mb-1">Card #</span>
+            <input
+              type="text"
+              className="p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+              placeholder="Enter card number"
+              value={cardNum}
+              onChange={(e) => setCardNum(e.target.value)}
+              required
+            />
           </label>
 
           {error && <p className="text-red-500 text-sm">{error}</p>}

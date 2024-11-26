@@ -8,6 +8,7 @@ const sample_users = [
     email: "user1@example.com",
     buildingName: "Building A",
     buildingAddress: "123 Main St, Cityville",
+    card: "12334566654654",
   },
   {
     uid: 2,
@@ -15,6 +16,7 @@ const sample_users = [
     email: "user2@example.com",
     buildingName: "Building B",
     buildingAddress: "456 Elm St, Townsville",
+    card: "92334566654654",
   },
   {
     uid: 3,
@@ -22,6 +24,7 @@ const sample_users = [
     email: "user3@example.com",
     buildingName: "Building C",
     buildingAddress: "789 Oak St, Villageville",
+    card: "82334566654654",
   },
 ];
 
