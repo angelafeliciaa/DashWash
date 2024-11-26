@@ -92,7 +92,7 @@ export default function UserFilters({ onApplyFilters }) {
             onChange={handleCheckboxChange}
             className="h-4 w-4"
           />
-          Show users who have filed feedback for all laundry machines
+          Show users who have filed feedback for all laundry machines in their building
         </label>
       </div>
       <div className="w-[100px] ml-auto">
