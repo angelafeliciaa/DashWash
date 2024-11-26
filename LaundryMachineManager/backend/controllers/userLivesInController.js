@@ -51,28 +51,39 @@ const getUserLivesIn = async (req, res) => {
 const rmDashBoardUsers = async (req, res) => {
   try {
     // Does not include "Show users who have filed feedback for all laundry machines" yet
-
-    // SELECTION
     const { name, email, buildingName, cardNum, orderBy } = req.body;
+
     let query = supabaseServiceRole
       .from("userlivesin")
-      .select(
-        `uid,
-      uname,
-      uemail,
-      campusresidence (
-        bid,
-        bname,
-        address
-      ),
-      loadswashingcard (
-        cid
-      )
-    `
-      )
-      .ilike("uname", `%${name || ""}%`)
-      .ilike("uemail", `%${email || ""}%`)
-      .ilike("campusresidence.bname", `%${buildingName || ""}%`);
+      .select(`
+        uid,
+        uname,
+        uemail,
+        campusresidence (
+          bid,
+          bname,
+          address
+        ),
+        loadswashingcard (
+          cid
+        )
+      `);
+      
+    if (name && name.trim() !== "") {
+        query = query.ilike("uname", `%${name.trim()}%`);
+    }
+
+    if (email && email.trim() !== "") {
+      query = query.ilike("uemail", `%${email.trim()}%`);
+    }
+
+    if (buildingName && buildingName.trim() !== "") {
+      query = query.ilike("campusresidence.bname", `%${buildingName.trim()}%`);
+    }
+
+    if (cardNum && cardNum.trim() !== "") {
+      query = query.eq("loadswashingcard.cid", cardNum.trim());
+    }
 
     // SELECT user.uid, user.uname, user.uemail, res.bid, res.bname, res.address, card.cid
     // FROM userlivesin user, campusresidence res, loadswashingcard card

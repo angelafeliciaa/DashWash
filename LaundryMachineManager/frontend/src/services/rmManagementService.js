@@ -1,40 +1,43 @@
 export const getRmDashBoardUsers = async (
-  name,
-  email,
-  buildingName,
-  cardNum,
-  orderBy
-) => {
-  try {
-    const response = await fetch(
-      `http://localhost:5001/userLivesIn/rmDashBoard`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, buildingName, cardNum, orderBy }),
+    name = "",
+    email = "",
+    buildingName = "",
+    cardNum = "",
+    orderBy = ""
+  ) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5001/userLivesIn/rmDashBoard`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, buildingName, cardNum, orderBy }),
+        }
+      );
+      const data = await response.json();
+      console.log("RM dashboard response data:", data);
+  
+      if (response.ok) {
+        return data.map((resp) => {
+          return {
+            uid: resp.uid,
+            name: resp.uname,
+            email: resp.uemail,
+            bid: resp.campusresidence.bid,
+            buildingName: resp.campusresidence.bname,
+            buildingAddress: resp.campusresidence.address,
+            card: resp.loadswashingcard[0].cid,
+          };
+        });
+      } else {
+        throw new Error(data.message || "Failed to fetch users.");
       }
-    );
-    const data = await response.json();
-    console.log("RM dashboard response data:", data);
-
-    if (response.ok) {
-      return data.map((resp) => {
-        return {
-          uid: resp.uid,
-          uname: resp.name,
-          uemail: resp.umail,
-          bid: resp.campusresidence.bid,
-          bname: resp.campusresidence.bname,
-          address: resp.campusresidence.address,
-          cid: resp.loadswashingcard.cid,
-        };
-      });
+    } catch (err) {
+      console.error("Failed to fetch users:", err.message);
+      throw err;
     }
-  } catch (err) {
-    console.error("Login failed", err.message);
-    throw err;
-  }
-};
+  };
+
 
 export const getRmDashBoardMachines = async (
   lid,
