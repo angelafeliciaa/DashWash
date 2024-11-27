@@ -3,7 +3,7 @@ export const getRmDashBoardUsers = async (
     email = "",
     buildingName = "",
     cardNum = "",
-    orderBy = ""
+    orderBy = "uname"
   ) => {
     try {
       const response = await fetch(

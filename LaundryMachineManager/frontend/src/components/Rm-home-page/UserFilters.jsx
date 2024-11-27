@@ -38,7 +38,7 @@ export default function UserFilters({ onApplyFilters }) {
           type="text"
           name="name"
           placeholder="Search by Name"
-          value={filters.uname}
+          value={filters.name}
           onChange={handleInputChange}
           className="p-2 border border-gray-300 rounded-lg"
         />
