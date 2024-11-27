@@ -14,7 +14,10 @@ export default function Navigator() {
         <p className="font-bold ml-2 text-white">DashWash</p>
       </div>
       <nav className="flex flex-col mt-4 space-y-4">
-        <a href="/" className="flex items-center px-4 py-2 hover:bg-gray-700">
+        <a
+          href="/home"
+          className="flex items-center px-4 py-2 hover:bg-gray-700"
+        >
           <MdHome size={24} />
           <p className="ml-4 text-white">Home</p>
         </a>
@@ -32,7 +35,9 @@ export default function Navigator() {
       </nav>
       <div className="mt-auto mb-5 flex items-center px-4 py-2 hover:bg-gray-700">
         <MdOutlineLogout size={24} />
-        <p className="ml-4 text-white">Logout</p>
+        <a href="/" className="flex items-center px-4 py-2 hover:bg-gray-700">
+          <p className="ml-4 text-white">Logout</p>
+        </a>
       </div>
     </aside>
   );
