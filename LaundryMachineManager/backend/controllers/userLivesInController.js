@@ -50,10 +50,19 @@ const getUserLivesIn = async (req, res) => {
 
 const rmDashBoardUsers = async (req, res) => {
   try {
-    // Does not include "Show users who have filed feedback for all laundry machines" yet
-    const { name, email, buildingName, cardNum, orderBy } = req.body;
+    const { name, email, buildingName, cardNum, orderBy, feedbackFilter } = req.body;
 
-    let query = supabaseServiceRole.from("userlivesin").select(`
+    if (feedbackFilter) {
+      const { data, error } = await supabaseServiceRole
+        .rpc('get_users_with_full_feedback');
+
+      if (error) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      res.status(200).json(data);
+    } else {
+      let query = supabaseServiceRole.from("userlivesin").select(`
         uid,
         uname,
         uemail,
@@ -97,8 +106,8 @@ const rmDashBoardUsers = async (req, res) => {
     if (error) {
       return res.status(400).json({ error: error.message });
     }
-
-    res.status(200).json(data);
+    res.status(200).json(data); 
+    }
   } catch (err) {
     res
       .status(500)

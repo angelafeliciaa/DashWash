@@ -24,10 +24,19 @@ export default function UserFilters({ onApplyFilters }) {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: checked,
+      ...(name === 'feedbackFilter' && checked ? { name: '', email: '' } : {}),
     }));
   };
 
   const handleApplyFilters = () => {
+    if (filters.feedbackFilter) {
+      // if feedbackFilter is true, reset other filters
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        name: '',
+        email: '',
+      }));
+    }
     onApplyFilters(filters);
   };
 
@@ -40,6 +49,7 @@ export default function UserFilters({ onApplyFilters }) {
           placeholder="Search by Name"
           value={filters.name}
           onChange={handleInputChange}
+          disabled={filters.feedbackFilter}
           className="p-2 border border-gray-300 rounded-lg"
         />
         <input
@@ -48,6 +58,7 @@ export default function UserFilters({ onApplyFilters }) {
           placeholder="Search by Email"
           value={filters.email}
           onChange={handleInputChange}
+          disabled={filters.feedbackFilter}
           className="p-2 border border-gray-300 rounded-lg"
         />
         {/* <input
