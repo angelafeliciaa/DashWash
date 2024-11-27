@@ -7,7 +7,7 @@ export default function UserFilters({ onApplyFilters }) {
     email: "",
     buildingName: "",
     cardNumber: "",
-    orderBy: "",
+    orderBy: "uname",
     feedbackFilter: false,
   });
 
