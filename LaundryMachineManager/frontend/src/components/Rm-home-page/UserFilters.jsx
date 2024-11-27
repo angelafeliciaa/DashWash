@@ -7,7 +7,7 @@ export default function UserFilters({ onApplyFilters }) {
     email: "",
     buildingName: "",
     cardNumber: "",
-    orderBy: "name",
+    orderBy: "",
     feedbackFilter: false,
   });
 
@@ -38,7 +38,7 @@ export default function UserFilters({ onApplyFilters }) {
           type="text"
           name="name"
           placeholder="Search by Name"
-          value={filters.name}
+          value={filters.uname}
           onChange={handleInputChange}
           className="p-2 border border-gray-300 rounded-lg"
         />
