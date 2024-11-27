@@ -53,9 +53,7 @@ const rmDashBoardUsers = async (req, res) => {
     // Does not include "Show users who have filed feedback for all laundry machines" yet
     const { name, email, buildingName, cardNum, orderBy } = req.body;
 
-    let query = supabaseServiceRole
-      .from("userlivesin")
-      .select(`
+    let query = supabaseServiceRole.from("userlivesin").select(`
         uid,
         uname,
         uemail,
@@ -68,9 +66,9 @@ const rmDashBoardUsers = async (req, res) => {
           cid
         )
       `);
-      
+
     if (name && name.trim() !== "") {
-        query = query.ilike("uname", `%${name.trim()}%`);
+      query = query.ilike("uname", `%${name.trim()}%`);
     }
 
     if (email && email.trim() !== "") {

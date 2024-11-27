@@ -2,7 +2,7 @@ import Dryer from "/images/machines/Dryer.png";
 import { MdCircle } from "react-icons/md";
 import ButtonSmall from "../ButtonSmall";
 
-export default function DryerCard({ id, washingStatus, timeLeft, onClick }) {
+export default function DryerCard({ id, washingStatus }) {
   return (
     <article className="flex items-center max-w-[180px] min-w-[180px] p-3 bg-white rounded-md">
       <div className="w-1/2">
@@ -17,14 +17,6 @@ export default function DryerCard({ id, washingStatus, timeLeft, onClick }) {
             } mr-1`}
           />
           <small>{washingStatus}</small>
-        </div>
-        <small className={`${washingStatus === "open" ? "hidden" : "block"}`}>
-          {timeLeft} min
-        </small>
-        <div
-          className={`${washingStatus === "open" ? "block" : "hidden"} mt-1`}
-        >
-          <ButtonSmall name="Dry" onClick={onClick} />
         </div>
       </div>
     </article>

@@ -72,4 +72,55 @@ const getRmLaundryMachines = async (req, res) => {
   }
 };
 
-module.exports = { getLaundryMachines, getRmLaundryMachines };
+const getWashersByBid = async (req, res) => {
+  try {
+    const { bid } = req.body;
+    const { data, error } = await supabaseServiceRole.rpc(
+      "get_machines_with_washers",
+      { input_bid: bid }
+    );
+
+    if (error) {
+      return res.status(400).json({
+        error: "Failed to fetch Washers.",
+        details: error.message,
+      });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Internal server error.", details: err.message });
+  }
+};
+
+const getDryersByBid = async (req, res) => {
+  try {
+    const { bid } = req.body;
+    const { data, error } = await supabaseServiceRole.rpc(
+      "get_machines_with_dryers",
+      { input_bid: bid }
+    );
+
+    if (error) {
+      return res.status(400).json({
+        error: "Failed to fetch Dryers.",
+        details: error.message,
+      });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Internal server error.", details: err.message });
+  }
+};
+
+module.exports = {
+  getLaundryMachines,
+  getRmLaundryMachines,
+  getDryersByBid,
+  getWashersByBid,
+};
