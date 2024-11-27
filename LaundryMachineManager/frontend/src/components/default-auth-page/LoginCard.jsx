@@ -6,10 +6,14 @@ import { useNavigate } from "react-router-dom";
 export default function LoginCard({ toggle }) {
   const [uemail, setUemail] = useState("");
   const [upassword, setUpassword] = useState("");
-  const navigate = useNavigate(); 
+  const [isLoginAsRm, setIsLoginAsRm] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isLoginAsRm) {
+      navigate("/rm");
+    }
     try {
       const response = await handleLoginDefaultUser(uemail, upassword);
       console.log("Login Success!", response);
@@ -20,10 +24,10 @@ export default function LoginCard({ toggle }) {
     }
   };
 
-  const handleSignUp = async(e) => {
+  const handleSignUp = async (e) => {
     try {
       navigate("/register");
-    } catch(err) {
+    } catch (err) {
       console.error(err.message);
     }
   };
@@ -58,7 +62,16 @@ export default function LoginCard({ toggle }) {
               required
             />
           </label>
-
+          <label className="flex items-center gap-2 text-small-xl">
+            <input
+              type="checkbox"
+              name="feedbackFilter"
+              checked={isLoginAsRm}
+              onChange={() => setIsLoginAsRm((prev) => !prev)}
+              className="h-4 w-4"
+            />
+            Login as Resident manager
+          </label>
           <ButtonSmall name={"Login"} type="submit" />
           <small>
             Don't have an account?{" "}
