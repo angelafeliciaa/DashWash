@@ -3,7 +3,8 @@ export const getRmDashBoardUsers = async (
     email = "",
     buildingName = "",
     cardNumber = "",
-    orderBy = ""
+    orderBy = "",
+    feedbackFilter = false
   ) => {
     try {
       const response = await fetch(
@@ -11,24 +12,38 @@ export const getRmDashBoardUsers = async (
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, buildingName, cardNumber, orderBy }),
+          body: JSON.stringify({ name, email, buildingName, cardNumber, orderBy, feedbackFilter }),
         }
       );
       const data = await response.json();
       console.log("RM dashboard response data:", data);
   
       if (response.ok) {
-        return data.map((resp) => {
-          return {
-            uid: resp.uid,
-            name: resp.uname,
-            email: resp.uemail,
-            bid: resp.campusresidence.bid || "N/A",
-            buildingName: resp.campusresidence.bname || "N/A",
-            buildingAddress: resp.campusresidence.address || "N/A",
-            card: resp.loadswashingcard[0].cid,
-          };
-        });
+        if (feedbackFilter) {
+          return data.map((resp) => {
+            return {
+              uid: resp.uid,
+              name: resp.uname,
+              email: resp.uemail,
+              bid: resp.bid || "N/A",
+              buildingName: resp.bname || "N/A",
+              buildingAddress: resp.address || "N/A", 
+              card: resp.cid || "N/A",
+            };
+          });
+        } else {
+          return data.map((resp) => {
+            return {
+              uid: resp.uid,
+              name: resp.uname,
+              email: resp.uemail,
+              bid: resp.campusresidence.bid || "N/A",
+              buildingName: resp.campusresidence.bname || "N/A",
+              buildingAddress: resp.campusresidence.address || "N/A",
+              card: resp.loadswashingcard[0]?.cid || "N/A",
+            };
+          });
+        }
       } else {
         throw new Error(data.message || "Failed to fetch users.");
       }
@@ -86,12 +101,3 @@ export const getRmDashBoardMachines = async (
     throw err;
   }
 };
-
-// {
-//   "lid": true,
-//   "bname": true,
-//   "brand": false,
-//   "model": true,
-//   "address": true,
-//   "washing_status": true
-// }

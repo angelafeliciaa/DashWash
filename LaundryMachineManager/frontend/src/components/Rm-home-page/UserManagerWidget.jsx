@@ -75,7 +75,8 @@ export default function UserManagerWidget() {
         appliedFilters.email,
         appliedFilters.buildingName,
         appliedFilters.cardNumber,
-        appliedFilters.orderBy
+        appliedFilters.orderBy,
+        appliedFilters.feedbackFilter
       );
       setUsers(fetchedUsers);
     } catch (err) {
