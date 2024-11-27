@@ -2,7 +2,7 @@ export const getRmDashBoardUsers = async (
     name = "",
     email = "",
     buildingName = "",
-    cardNum = "",
+    cardNumber = "",
     orderBy = ""
   ) => {
     try {
@@ -11,7 +11,7 @@ export const getRmDashBoardUsers = async (
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, buildingName, cardNum, orderBy }),
+          body: JSON.stringify({ name, email, buildingName, cardNumber, orderBy }),
         }
       );
       const data = await response.json();
@@ -23,9 +23,9 @@ export const getRmDashBoardUsers = async (
             uid: resp.uid,
             name: resp.uname,
             email: resp.uemail,
-            bid: resp.campusresidence.bid,
-            buildingName: resp.campusresidence.bname,
-            buildingAddress: resp.campusresidence.address,
+            bid: resp.campusresidence.bid || "N/A",
+            buildingName: resp.campusresidence.bname || "N/A",
+            buildingAddress: resp.campusresidence.address || "N/A",
             card: resp.loadswashingcard[0].cid,
           };
         });

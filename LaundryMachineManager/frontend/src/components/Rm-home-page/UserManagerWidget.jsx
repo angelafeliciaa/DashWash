@@ -16,7 +16,7 @@ export default function UserManagerWidget() {
     name: "",
     email: "",
     buildingName: "",
-    cardNum: "",
+    cardNumber: "",
     orderBy: "",
   });
 
@@ -71,10 +71,10 @@ export default function UserManagerWidget() {
     setError(null);
     try {
       const fetchedUsers = await getRmDashBoardUsers(
-        appliedFilters.uname,
-        appliedFilters.uemail,
+        appliedFilters.name,
+        appliedFilters.email,
         appliedFilters.buildingName,
-        appliedFilters.cardNum,
+        appliedFilters.cardNumber,
         appliedFilters.orderBy
       );
       setUsers(fetchedUsers);
