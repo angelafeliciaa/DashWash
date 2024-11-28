@@ -131,4 +131,32 @@ export const getMachineCountsByBuilding = async () => {
   }
 };
 
+export const getFrequentlyUsedMachines = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:5001/laundryMachines/frequentlyUsedMachines`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const data = await response.json();
+    console.log("Frequently used machines: ", data);
+
+    if (response.ok) {
+      return data.map((building) => ({
+        bid: building.bid,
+        bname: building.bname,
+        lid: building.lid,
+        usage_count: building.usage_count,
+      }));
+    } else {
+      throw new Error(data.error || "Failed to fetch frequently used machines.");
+    }
+  } catch (err) {
+    console.error("Failed to fetch frequently used machines:", err.message);
+    throw err;
+  }
+};
 
