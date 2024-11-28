@@ -9,6 +9,7 @@ const laundryMachineRoute = require("./routes/laundryMachineRoute");
 const washingCardRoute = require("./routes/washingCardRoute");
 const transactionRoute = require("./routes/transactionHistoryRoute");
 const userRoutes = require("./routes/userRoutes");
+const { sqlInjectionMiddleware } = require("./middleware/auth");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 5001;
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
+app.use(sqlInjectionMiddleware);
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
