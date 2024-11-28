@@ -22,6 +22,15 @@ const getBuildings = async (req, res) => {
   }
 };
 
+// !!! HAVING QUERY
+// SELECT c.bname AS Building_Name,
+// r.washing_status AS Status,
+// COUNT(r.lid) AS AvailableMachines
+// FROM ResidenceLaundryMachine r
+// JOIN CampusResidence c ON c.bid = r.bid
+// WHERE r.washing_status = 'Available'
+// GROUP BY r.bid, c.bname, r.washing_status
+// HAVING COUNT(r.lid) > 0;
 const getBuildingsWithAvailMachines = async (req, res) => {
   try {
     const { data, error } = await supabaseServiceRole.rpc(
