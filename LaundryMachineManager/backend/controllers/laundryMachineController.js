@@ -76,7 +76,7 @@ const getWashersByBid = async (req, res) => {
   try {
     const { bid } = req.body;
     const { data, error } = await supabaseServiceRole.rpc(
-      "get_machines_with_washers",
+      "get_machines_with_washers_new",
       { input_bid: bid }
     );
 
@@ -99,7 +99,7 @@ const getDryersByBid = async (req, res) => {
   try {
     const { bid } = req.body;
     const { data, error } = await supabaseServiceRole.rpc(
-      "get_machines_with_dryers",
+      "get_machines_with_dryers_new",
       { input_bid: bid }
     );
 
@@ -120,7 +120,9 @@ const getDryersByBid = async (req, res) => {
 
 const getMachineCountsByBuilding = async (req, res) => {
   try {
-    const { data, error } = await supabaseServiceRole.rpc('get_machine_counts_by_building');
+    const { data, error } = await supabaseServiceRole.rpc(
+      "get_machine_counts_by_building"
+    );
 
     if (error) {
       console.error("Supabase RPC Error:", error);
@@ -130,13 +132,17 @@ const getMachineCountsByBuilding = async (req, res) => {
     res.status(200).json(data);
   } catch (err) {
     console.error("Server Error:", err);
-    res.status(500).json({ error: "Internal server error.", details: err.message });
+    res
+      .status(500)
+      .json({ error: "Internal server error.", details: err.message });
   }
 };
 
 const getFrequentlyUsedMachines = async (req, res) => {
   try {
-    const { data, error } = await supabaseServiceRole.rpc('get_frequently_used_machines');
+    const { data, error } = await supabaseServiceRole.rpc(
+      "get_frequently_used_machines"
+    );
 
     if (error) {
       console.error("Supabase RPC Error:", error);
@@ -146,12 +152,11 @@ const getFrequentlyUsedMachines = async (req, res) => {
     res.status(200).json(data);
   } catch (err) {
     console.error("Server Error:", err);
-    res.status(500).json({ error: "Internal server error.", details: err.message });
+    res
+      .status(500)
+      .json({ error: "Internal server error.", details: err.message });
   }
 };
-
-
-
 
 module.exports = {
   getLaundryMachines,
@@ -159,5 +164,5 @@ module.exports = {
   getDryersByBid,
   getWashersByBid,
   getMachineCountsByBuilding,
-  getFrequentlyUsedMachines
+  getFrequentlyUsedMachines,
 };
