@@ -101,3 +101,34 @@ export const getRmDashBoardMachines = async (
     throw err;
   }
 };
+
+export const getMachineCountsByBuilding = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:5001/laundryMachines/machineCountsByBuilding`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const data = await response.json();
+    console.log("Machine counts by building:", data);
+
+    if (response.ok) {
+      return data.map((building) => ({
+        bid: building.bid,
+        bname: building.bname,
+        address: building.address,
+        machine_count: building.machine_count,
+      }));
+    } else {
+      throw new Error(data.error || "Failed to fetch machine counts.");
+    }
+  } catch (err) {
+    console.error("Failed to fetch machine counts:", err.message);
+    throw err;
+  }
+};
+
+
