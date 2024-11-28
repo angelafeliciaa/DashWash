@@ -13,7 +13,7 @@ export default function DryerCard({ id, washingStatus }) {
         <div className="flex items-center">
           <MdCircle
             className={`${
-              washingStatus === "open" ? "text-green-600" : "text-red-600"
+              washingStatus === "Available" ? "text-green-600" : "text-red-600"
             } mr-1`}
           />
           <small>{washingStatus}</small>

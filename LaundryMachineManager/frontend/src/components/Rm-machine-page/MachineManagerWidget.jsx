@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import MachineFilters from "./MachineFilters";
+import MachineFilters from "./MachineFIlters";
 import {
   getRmDashBoardMachines,
   getMachineCountsByBuilding,
@@ -66,28 +66,29 @@ export default function MachineManagerWidget() {
       <MachineFilters onApplyFilters={handleApplyFilters} />
 
       <div className="overflow-x-auto">
-        {selectedOption === "frequentMachines" && frequentMachines.length > 0 && (
-          <table className="min-w-full table-auto">
-            <thead>
-              <tr className="bg-gray-100 text-left">
-                <th className="px-4 py-2">Building ID</th>
-                <th className="px-4 py-2">Building Name</th>
-                <th className="px-4 py-2">Machine ID</th>
-                <th className="px-4 py-2">Usage Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              {frequentMachines.map((machine) => (
-                <tr key={`${machine.bid}-${machine.lid}`}>
-                  <td>{machine.bid}</td>
-                  <td>{machine.bname}</td>
-                  <td>{machine.lid}</td>
-                  <td>{machine.usage_count}</td>
+        {selectedOption === "frequentMachines" &&
+          frequentMachines.length > 0 && (
+            <table className="min-w-full table-auto">
+              <thead>
+                <tr className="bg-gray-100 text-left">
+                  <th className="px-4 py-2">Building ID</th>
+                  <th className="px-4 py-2">Building Name</th>
+                  <th className="px-4 py-2">Machine ID</th>
+                  <th className="px-4 py-2">Usage Count</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+              </thead>
+              <tbody>
+                {frequentMachines.map((machine) => (
+                  <tr key={`${machine.bid}-${machine.lid}`}>
+                    <td>{machine.bid}</td>
+                    <td>{machine.bname}</td>
+                    <td>{machine.lid}</td>
+                    <td>{machine.usage_count}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
 
         {selectedOption === "machineCounts" && machineCounts.length > 0 && (
           <table className="min-w-full table-auto">
@@ -137,7 +138,9 @@ export default function MachineManagerWidget() {
                   {selectedColumns.buildingName && <td>{machine.bname}</td>}
                   {selectedColumns.brand && <td>{machine.brand}</td>}
                   {selectedColumns.model && <td>{machine.model}</td>}
-                  {selectedColumns.buildingAddress && <td>{machine.address}</td>}
+                  {selectedColumns.buildingAddress && (
+                    <td>{machine.address}</td>
+                  )}
                   {selectedColumns.washingStatus && (
                     <td>{machine.washing_status}</td>
                   )}

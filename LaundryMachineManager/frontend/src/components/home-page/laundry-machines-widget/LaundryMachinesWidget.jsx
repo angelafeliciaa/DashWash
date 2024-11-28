@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import WasherCard from "../../global/machine-cards/WasherCard";
 import DryerCard from "../../global/machine-cards/DryerCard";
+import BuildingsWithAvailMachinesWidget from "./BuildingsWithAvailMachinesWidget";
 export default function LaundryMachinesWidget() {
   const [building, setBuilding] = useState(null);
   const [buildings, setBuildings] = useState([]);
@@ -87,9 +88,10 @@ export default function LaundryMachinesWidget() {
     <section className="flex flex-col w-full bg-widget rounded-3xl p-5">
       <h1>Laundry Machines</h1>
       <label className="flex flex-col ">
-        <span className="mb-1">Building</span>
+        <BuildingsWithAvailMachinesWidget />
+        <p className="mb-1">Building</p>
         <select
-          className="p-2 border bg-black text-white rounded-xl"
+          className="p-2 border bg-black text-white rounded-xl mb-10"
           value={building}
           onChange={(e) => {
             setBuilding(e.target.value);
