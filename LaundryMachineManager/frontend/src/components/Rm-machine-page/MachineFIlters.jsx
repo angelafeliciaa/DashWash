@@ -90,8 +90,7 @@ export default function MachineFilters({ onApplyFilters }) {
 
   return (
     <div className="flex flex-col gap-4 p-6 bg-widget rounded-3xl my-5">
-
-<div className="flex flex-col gap-2 mt-4">
+      <div className="flex flex-col gap-2 mt-4">
         <legend className="font-semibold">Select an Option:</legend>
         <label className="flex items-center">
           <input
@@ -128,7 +127,6 @@ export default function MachineFilters({ onApplyFilters }) {
         </label>
       </div>
 
-
       {/* <h2 className="text-xl font-bold">Choose Columns to Display</h2>
       <div className="grid grid-cols-2 gap-4">
         {Object.keys(filters.selectedColumns).map((column) => (
@@ -157,8 +155,8 @@ export default function MachineFilters({ onApplyFilters }) {
         <label htmlFor="showCounts">Show machine counts by building</label>
       </div> */}
 
-       {/* Column Selection Checkboxes */}
-       <fieldset
+      {/* Column Selection Checkboxes */}
+      <fieldset
         disabled={selectedOption !== "default"}
         className="flex flex-wrap gap-4 mt-4"
       >
