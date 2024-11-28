@@ -133,7 +133,7 @@ export default function MachineManagerWidget() {
             </thead>
             <tbody>
               {machines.map((machine) => (
-                <tr key={machine.lid}>
+                <tr >
                   {selectedColumns.lid && <td>{machine.lid}</td>}
                   {selectedColumns.buildingName && <td>{machine.bname}</td>}
                   {selectedColumns.brand && <td>{machine.brand}</td>}
