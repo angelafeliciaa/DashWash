@@ -1,8 +1,8 @@
 const sqlInjectionMiddleware = (req, res, next) => {
   const sussyBaka = [
-    /(\bSELECT\b|\bINSERT\b|\bUPDATE\b|\bDELETE\b|\bDROP\b|\bUNION\b|\bEXEC\b|\bMERGE\b)/i, // SQL commands
-    /\bCHAR\b\(\d+\)/i, // Character conversion
-    /(\d+=\d+)/, // Equality checks
+    /(\bSELECT\b|\bINSERT\b|\bUPDATE\b|\bDELETE\b|\bDROP\b|\bUNION\b|\bEXEC\b|\bMERGE\b)/i, // Prevent SQL commands
+    /\bCHAR\b\(\d+\)/i, // Prevent Character conversion
+    /(\d+=\d+)/, // Prevent Equality checks
   ];
 
   const isInjection = (input) =>
@@ -17,11 +17,9 @@ const sqlInjectionMiddleware = (req, res, next) => {
   for (const [key, value] of Object.entries(requestData)) {
     if (value && isInjection(value)) {
       console.warn(`Potential SQL Injection detected in ${key}: ${value}`);
-      return res
-        .status(400)
-        .json({
-          error: "SQL Injection attempt detected! IP ADDRESS RETRIEVED",
-        });
+      return res.status(400).json({
+        error: "SQL Injection attempt detected! IP ADDRESS RETRIEVED",
+      });
     }
   }
 
