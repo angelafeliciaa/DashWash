@@ -118,9 +118,26 @@ const getDryersByBid = async (req, res) => {
   }
 };
 
+const getMachineCountsByBuilding = async (req, res) => {
+  try {
+    const { data, error } = await supabaseServiceRole.rpc('get_machine_counts_by_building');
+
+    if (error) {
+      console.error("Supabase RPC Error:", error);
+      return res.status(400).json({ error: error.message });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("Server Error:", err);
+    res.status(500).json({ error: "Internal server error.", details: err.message });
+  }
+};
+
 module.exports = {
   getLaundryMachines,
   getRmLaundryMachines,
   getDryersByBid,
   getWashersByBid,
+  getMachineCountsByBuilding
 };

@@ -11,6 +11,7 @@ export default function MachineFilters({ onApplyFilters }) {
       buildingAddress: true,
       washingStatus: true,
     },
+    showCounts: false,
   });
 
   const handleColumnChange = (e) => {
@@ -24,8 +25,40 @@ export default function MachineFilters({ onApplyFilters }) {
     }));
   };
 
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setFilters((prevFilters) => {
+      if (name === "showCounts") {
+        if (checked) {
+          // unselect all columns
+          const unselectedColumns = Object.keys(prevFilters.selectedColumns).reduce(
+            (acc, column) => {
+              acc[column] = false;
+              return acc;
+            },
+            {}
+          );
+          return {
+            ...prevFilters,
+            [name]: checked,
+            selectedColumns: unselectedColumns,
+          };
+        } else {
+          return {
+            ...prevFilters,
+            [name]: checked,
+          };
+        }
+      }
+      return {
+        ...prevFilters,
+        [name]: checked,
+      };
+    });
+  };
+
   const handleApplyFilters = () => {
-    onApplyFilters(filters.selectedColumns);
+    onApplyFilters(filters);
   };
 
   return (
@@ -46,6 +79,16 @@ export default function MachineFilters({ onApplyFilters }) {
               .replace(/^./, (str) => str.toUpperCase())}{" "}
           </label>
         ))}
+      </div>
+      <div className="flex items-center gap-2 text-small-xl mt-4">
+        <input
+          type="checkbox"
+          name="showCounts"
+          checked={filters.showCounts}
+          onChange={handleCheckboxChange}
+          className="h-4 w-4"
+        />
+        <label htmlFor="showCounts">Show machine counts by building</label>
       </div>
       <div className="w-[100px] ml-auto">
         <ButtonSmall name="Apply" onClick={handleApplyFilters} />
