@@ -5,11 +5,13 @@ const {
   getDryersByBid,
   getWashersByBid,
   getMachineCountsByBuilding,
+  getFrequentlyUsedMachines
 } = require("./../controllers/laundryMachineController.js");
 
 const router = express.Router();
 
 router.get('/machineCountsByBuilding', getMachineCountsByBuilding);
+router.get('/frequentlyUsedMachines', getFrequentlyUsedMachines);
 
 router.get("/:bid", getLaundryMachines);
 router.post("/rm-machines", getRmLaundryMachines);
