@@ -51,10 +51,16 @@ const getRmLaundryMachines = async (req, res) => {
       }
     });
 
-    const selectQuery = `
-      ${laundryMachineColumns.join(", ")}, 
-      campusresidence(${residenceColumns.join(", ")})
-    `;
+    let selectQuery = "";
+    if (laundryMachineColumns.length > 0) {
+      selectQuery += `${laundryMachineColumns.join(", ")}`;
+    }
+    if (residenceColumns.length > 0) {
+      if (selectQuery) {
+        selectQuery += ", ";
+      }
+      selectQuery += `campusresidence(${residenceColumns.join(", ")})`;
+    }
 
     const { data, error } = await supabaseServiceRole
       .from("residencelaundrymachine")
