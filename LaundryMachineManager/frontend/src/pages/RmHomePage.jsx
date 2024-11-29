@@ -31,7 +31,7 @@ import UserManagerWidget from "../components/Rm-home-page/UserManagerWidget";
 export default function RmHomePage() {
   return (
     <main className="flex h-screen">
-      <Navigator className="w-[250px] h-screen fixed" />
+      <Navigator isRm={true} className="w-[250px] h-screen fixed" />
       <div className="ml-[255px] flex-1 flex flex-row h-full ">
         <UserManagerWidget />
       </div>
