@@ -5,7 +5,7 @@
 INSERT INTO userlivesin (uid, bid, uname, uemail, upassword)
 VALUES (:uid, :building, :name, :email, :password)
 
--- Register a card for the user 
+-- Register a washing card for the user 
 
 INSERT INTO loadswashingcard (cid, uid, balance)
 VALUES (:cid, :uid, :balance)
@@ -152,7 +152,7 @@ GROUP BY
 
 /* 8. Aggregation with HAVING */
 
--- View the buildings which have two or more available laundry machines 
+-- View the buildings which have one or more available laundry machines 
 
 SELECT 
     c.bname AS Building_Name, 
@@ -166,16 +166,16 @@ WHERE
 GROUP BY 
     r.bid, c.bname, r.washing_status
 HAVING 
-    COUNT(r.lid) > 1;
+    COUNT(r.lid) > 0;
 
 
 
 /* 9. Nested aggregation with GROUP BY */
 
 -- View the laundry machines which are most frequently used 
+-- Frequently used means this laundry machine using times 
+-- are more than all laundry machines' average using times 
 
--- Frequently used means this laundry machine's using times are 
--- more than all laundry machiness' average using times 
 
 SELECT
     rlm.bid,
