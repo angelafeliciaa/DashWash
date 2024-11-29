@@ -7,6 +7,7 @@ import "./App.css";
 import LoginCard from "./components/default-auth-page/LoginCard";
 import RegisterCard from "./components/default-auth-page/RegisterCard";
 import RmMachinePage from "./pages/RmMachinePage";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -20,6 +21,17 @@ function App() {
         <Route path="/rm/machines" element={<RmMachinePage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Router>
   );
 }

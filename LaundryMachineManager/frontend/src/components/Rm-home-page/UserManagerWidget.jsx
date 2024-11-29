@@ -5,6 +5,8 @@ import EditUserModal from "./EditUserModal";
 import UserFilters from "./UserFilters";
 import ButtonSmall from "../global/ButtonSmall";
 import { getRmDashBoardUsers } from "../../services/rmManagementService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 
 export default function UserManagerWidget() {
   const [users, setUsers] = useState([]);
@@ -58,9 +60,13 @@ export default function UserManagerWidget() {
       console.log(data.message);
 
       setUsers((prevUsers) => prevUsers.filter((user) => user.uid !== uid));
+
+      toast.success("User deleted successfully!");
     } catch (err) {
       console.error("Error deleting user:", err.message);
       setError("Failed to delete user. Please try again.");
+
+      toast.error(err.message || "Failed to delete user. Please try again.");
     } finally {
       setIsDeleting(false);
     }
@@ -80,7 +86,10 @@ export default function UserManagerWidget() {
       );
       setUsers(fetchedUsers);
     } catch (err) {
+      console.error("Error fetching users:", err.message);
       setError(err.message || "Failed to fetch users.");
+
+      toast.error(err.message || "Failed to fetch users.");
     }
   };
 
@@ -139,55 +148,55 @@ export default function UserManagerWidget() {
             </tr>
           </thead>
           <tbody>
-              {users.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan="7"
-                    className="px-4 py-2 text-center text-gray-500"
-                  >
-                    No users found.
+            {users.length === 0 ? (
+              <tr>
+                <td
+                  colSpan="7"
+                  className="px-4 py-2 text-center text-gray-500"
+                >
+                  No users found.
+                </td>
+              </tr>
+            ) : (
+              users.map((user) => (
+                <tr key={user.uid} className="hover:bg-gray-50">
+                  <td className="px-4 py-2 text-small-xl text-gray-700">
+                    {user.uid}
+                  </td>
+                  <td className="px-4 py-2 text-small-xl text-gray-700">
+                    {user.name}
+                  </td>
+                  <td className="px-4 py-2 text-small-xl text-gray-700">
+                    {user.email}
+                  </td>
+                  <td className="px-4 py-2 text-small-xl text-gray-700">
+                    {user.buildingName}
+                  </td>
+                  <td className="px-4 py-2 text-small-xl text-gray-700">
+                    {user.buildingAddress}
+                  </td>
+                  <td className="px-4 py-2 text-small-xl text-gray-700">
+                    {user.card}
+                  </td>
+                  <td className="px-4 py-2 text-small-xl text-gray-700">
+                    <button
+                      className="text-2xl p-2 text-blue-500"
+                      onClick={() => handleEditUser(user)}
+                    >
+                      <MdModeEdit />
+                    </button>
+                    <button
+                      className="text-2xl p-2 text-red-500"
+                      onClick={() => handleDeleteUser(user.uid)}
+                      disabled={isDeleting}
+                    >
+                      <MdDelete />
+                    </button>
                   </td>
                 </tr>
-              ) : (
-                users.map((user) => (
-                  <tr key={user.uid} className="hover:bg-gray-50">
-                    <td className="px-4 py-2 text-small-xl text-gray-700">
-                      {user.uid}
-                    </td>
-                    <td className="px-4 py-2 text-small-xl text-gray-700">
-                      {user.name}
-                    </td>
-                    <td className="px-4 py-2 text-small-xl text-gray-700">
-                      {user.email}
-                    </td>
-                    <td className="px-4 py-2 text-small-xl text-gray-700">
-                      {user.buildingName}
-                    </td>
-                    <td className="px-4 py-2 text-small-xl text-gray-700">
-                      {user.buildingAddress}
-                    </td>
-                    <td className="px-4 py-2 text-small-xl text-gray-700">
-                      {user.card}
-                    </td>
-                    <td className="px-4 py-2 text-small-xl text-gray-700">
-                      <button
-                        className="text-2xl p-2 text-blue-500"
-                        onClick={() => handleEditUser(user)}
-                      >
-                        <MdModeEdit />
-                      </button>
-                      <button
-                        className="text-2xl p-2 text-red-500"
-                        onClick={() => handleDeleteUser(user.uid)}
-                        disabled={isDeleting}
-                      >
-                        <MdDelete />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
+              ))
+            )}
+          </tbody>
         </table>
       </div>
 
