@@ -47,7 +47,12 @@ INSERT INTO UserLivesIn (uID, bid, uname, uemail, upassword) VALUES
 ('1650bab4-6943-441e-a3af-6bd7f79f95cb', 2, 'Jane Smith', 'janesmith@gmail.com', 'upassword2'),
 ('1650bab4-6943-441e-a3af-6bd7f79f95cc', 3, 'Bob Johnson', 'bobjohnson@gmail.com', 'upassword3'),
 ('1650bab4-6943-441e-a3af-6bd7f79f95cd', 4, 'Alice Brown', 'alicebrown@gmail.com', 'upassword4'),
-('1650bab4-6943-441e-a3af-6bd7f79f95ce', 5, 'Charlie Davis', 'charliedavis@gmail.com', 'upassword5');
+('1650bab4-6943-441e-a3af-6bd7f79f95ce', 5, 'Charlie Davis', 'charliedavis@gmail.com', 'upassword5'),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95c1', 5, 'George White', 'georgewhite@gmail.com', 'upassword6'),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95c2', 5, 'Cindy Moris', 'cindymoris@gmail.com', 'upassword6' ),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95c3', 5, 'Fiona Fores', 'fionafores@gmail.com', 'upassword6'),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95c4', 5, 'Jason Wong', 'jasonwong@gmail.com', 'upassword6'),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95c5', 5, 'Amanda Welson', 'amandawelson@gmail.com', 'upassword6');
 
 -- ResidenceLaundryMachine Table
 CREATE TABLE ResidenceLaundryMachine (
@@ -93,10 +98,11 @@ CREATE TABLE ReportsFeedback (
 
 INSERT INTO ReportsFeedback (fid, uid, bid, lid, FeedbackType, Comments) VALUES
 (1, '1650bab4-6943-441e-a3af-6bd7f79f95ca', 1, 1, 'Complaint', 'Machine not working'),
-(2, '1650bab4-6943-441e-a3af-6bd7f79f95cb', 1, 2, 'Suggestion', 'Need more dryers'),
-(3, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 2, 1, 'Compliment', 'Great service'),
-(4, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 3, 1, 'Complaint', 'Card reader malfunctioning'),
-(5, '1650bab4-6943-441e-a3af-6bd7f79f95ce', 4, 1, 'Suggestion', 'Extend laundry hours');
+(2, '1650bab4-6943-441e-a3af-6bd7f79f95cb', 2, 2, 'Suggestion', 'Need more dryers'),
+ (3, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 3, 1, 'Complaint', 'Not working'),
+ (4, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 4, 1, 'Complaint', 'Card reader malfunctioning'),
+ (5, '1650bab4-6943-441e-a3af-6bd7f79f95cd', 4, 2, 'Complaint', 'Out of Order'),
+ (6, '1650bab4-6943-441e-a3af-6bd7f79f95cc', 3, 2, 'Complaint', 'Not working');
 
 -- LoadsWashingCard Table
 CREATE TABLE LoadsWashingCard (
@@ -109,11 +115,16 @@ CREATE TABLE LoadsWashingCard (
 );
 
 INSERT INTO LoadsWashingCard (cid, uid, Balance) VALUES
-('1650bab4-6943-441e-a3af-6bd7f79f95da', '1650bab4-6943-441e-a3af-6bd7f79f95ca', 20),
-('1650bab4-6943-441e-a3af-6bd7f79f95db', '1650bab4-6943-441e-a3af-6bd7f79f95cb', 15),
-('1650bab4-6943-441e-a3af-6bd7f79f95dc', '1650bab4-6943-441e-a3af-6bd7f79f95cc', 30),
-('1650bab4-6943-441e-a3af-6bd7f79f95dd', '1650bab4-6943-441e-a3af-6bd7f79f95cd', 10),
-('1650bab4-6943-441e-a3af-6bd7f79f95de', '1650bab4-6943-441e-a3af-6bd7f79f95ce', 25);
+ ('1650bab4-6943-441e-a3af-6bd7f79f95da', '1650bab4-6943-441e-a3af-6bd7f79f95ca', 50),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95db', '1650bab4-6943-441e-a3af-6bd7f79f95cb', 15),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95dc', '1650bab4-6943-441e-a3af-6bd7f79f95cc', 30),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95dd', '1650bab4-6943-441e-a3af-6bd7f79f95cd', 10),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95de', '1650bab4-6943-441e-a3af-6bd7f79f95ce', 25),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d1', '1650bab4-6943-441e-a3af-6bd7f79f95c1', 40),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d2', '1650bab4-6943-441e-a3af-6bd7f79f95c2', 40),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d3', '1650bab4-6943-441e-a3af-6bd7f79f95c3', 40),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d4', '1650bab4-6943-441e-a3af-6bd7f79f95c4', 20),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d5', '1650bab4-6943-441e-a3af-6bd7f79f95c5', 20);
 
 -- Pays Table
 CREATE TABLE Pays (
@@ -131,11 +142,16 @@ ON DELETE CASCADE,
 );
 
 INSERT INTO Pays (cid, bid, lid, hasfunds) VALUES
-('1650bab4-6943-441e-a3af-6bd7f79f95da', 1, 1, TRUE),
-('1650bab4-6943-441e-a3af-6bd7f79f95db', 1, 2, TRUE),
-('1650bab4-6943-441e-a3af-6bd7f79f95dc', 2, 1, TRUE),
-('1650bab4-6943-441e-a3af-6bd7f79f95dd', 3, 1, FALSE),
-('1650bab4-6943-441e-a3af-6bd7f79f95de', 4, 1, TRUE); 
+ ('1650bab4-6943-441e-a3af-6bd7f79f95da', 1, 1, TRUE),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95db', 2, 2, TRUE),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95dc', 3, 1, TRUE),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95dd', 4, 1, FALSE),
+ ('1650bab4-6943-441e-a3af-6bd7f79f95de', 5, 1, TRUE), 
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d1', 5, 1, TRUE), 
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d2', 5, 1, TRUE), 
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d3', 5, 1, TRUE), 
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d4', 5, 1, TRUE), 
+ ('1650bab4-6943-441e-a3af-6bd7f79f95d5', 5, 1, TRUE);
 
 -- WashTypeSession Table
 CREATE TABLE WashTypeSession (
@@ -262,7 +278,12 @@ INSERT INTO RecordsTransaction (tid, cid, day, time, price) VALUES
 (2, '1650bab4-6943-441e-a3af-6bd7f79f95db', '2024-09-15', '10:13:30', 300),
 (3, '1650bab4-6943-441e-a3af-6bd7f79f95dc', '2024-10-01', '14:09:00', 150),
 (4, '1650bab4-6943-441e-a3af-6bd7f79f95dd', '2024-10-05', '11:45:45', 150),
-(5, '1650bab4-6943-441e-a3af-6bd7f79f95de', '2024-10-13', '21:10:10', 150);
+(5, '1650bab4-6943-441e-a3af-6bd7f79f95de', '2024-10-13', '21:10:10', 150),
+ (6, '1650bab4-6943-441e-a3af-6bd7f79f95d1', '2024-10-18', '12:33:05', 150),
+ (7, '1650bab4-6943-441e-a3af-6bd7f79f95d2', '2024-10-19', '17:55:31', 150),
+ (8, '1650bab4-6943-441e-a3af-6bd7f79f95d3', '2024-10-20', '14:10:33', 150),
+ (9, '1650bab4-6943-441e-a3af-6bd7f79f95d4', '2024-10-21', '19:40:27', 150),
+ (10, '1650bab4-6943-441e-a3af-6bd7f79f95d5', '2024-10-22', '20:54:08', 150);
 
 -- Technician Table
 CREATE TABLE Technician (
