@@ -6,6 +6,7 @@ export default function AddFundsModal({ onClose, setBal, uid }) {
   const [customAmount, setCustomAmount] = useState("");
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleCustomAmountChange = (e) => {
     setCustomAmount(e.target.value);
@@ -30,22 +31,31 @@ export default function AddFundsModal({ onClose, setBal, uid }) {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to add funds");
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to add funds");
         }
 
         const data = await response.json();
         
-        setBal(data.balance);
+        setBal(data.balance); // Update the balance in the parent component
         setCustomAmount("");
         setSelectedAmount(null);
         setSuccessMessage("Funds added successfully!");
+        setErrorMessage("");
+        
+        // Automatically close the modal after a short delay
         setTimeout(() => {
           setSuccessMessage("");
           onClose();
         }, 2000);
       } catch (err) {
         console.error("Error adding funds:", err);
+        setErrorMessage(err.message || "Failed to add funds");
+        setSuccessMessage("");
       }
+    } else {
+      setErrorMessage("Please enter a valid amount");
+      setSuccessMessage("");
     }
   };
 
@@ -87,6 +97,18 @@ export default function AddFundsModal({ onClose, setBal, uid }) {
               placeholder="Enter custom amount"
             />
           </div>
+
+          {successMessage && (
+            <div className="mt-4 text-green-500">
+              {successMessage}
+            </div>
+          )}
+
+          {errorMessage && (
+            <div className="mt-4 text-red-500">
+              {errorMessage}
+            </div>
+          )}
 
           <div className="mt-4 flex justify-end">
             <ButtonLarge name="Add Funds" onClick={handleSubmit} />
