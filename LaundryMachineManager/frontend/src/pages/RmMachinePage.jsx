@@ -4,7 +4,7 @@ import Navigator from "../components/global/Navigator";
 export default function RmMachinePage() {
   return (
     <main className="flex h-screen">
-      <Navigator className="w-[250px] h-screen fixed" />
+      <Navigator isRm={true} className="w-[250px] h-screen fixed" />
       <div className="ml-[255px] flex-1 flex flex-row h-full ">
         <MachineManagerWidget />
       </div>

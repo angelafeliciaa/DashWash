@@ -13,14 +13,15 @@ export default function LoginCard({ toggle }) {
     e.preventDefault();
     if (isLoginAsRm) {
       navigate("/rm");
-    }
-    try {
-      const response = await handleLoginDefaultUser(uemail, upassword);
-      console.log("Login Success!", response);
-      navigate("/home");
-    } catch (err) {
-      console.error(err.message);
-      alert("Invalid Email or Password");
+    } else {
+      try {
+        const response = await handleLoginDefaultUser(uemail, upassword);
+        console.log("Login Success!", response);
+        navigate("/home");
+      } catch (err) {
+        console.error(err.message);
+        alert("Invalid Email or Password");
+      }
     }
   };
 
